@@ -11,6 +11,7 @@ const corsOption = {
 }
 app.use(cors(corsOption));
 
+// connection to database
 connectDB();
 
 app.get("/", (req, res)=>{
