@@ -1,3 +1,4 @@
+import AdminService from "../services/adminService.js";
 import superUserService from "../services/superUserService.js";
 
 class SuperUserController{
@@ -8,9 +9,24 @@ class SuperUserController{
             return res.status(400).json({message:"All fields are required"});
         }
 
+        try{
+            const superUserExist = await superUserService.checkUsername(username);
+            if(superUserExist !== null){
+                return res.status(400).json({message:"username already exist"});
+            }
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
+
         // save user info in database 
-        const superUser = await superUserService.createSuperUser({name, username, password});
-        console.log(superUser)
+        let superUser;
+        try{
+            superUser = await superUserService.createSuperUser({name, username, password});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
 
         // send username in cookies to client
         res.cookie("id", superUser._id, {
@@ -29,10 +45,16 @@ class SuperUserController{
         const {username, password} = req.body;
 
         if(!username || !password){
-            return res.status(401).json({message:"All fields required"});
+            return res.status(400).json({message:"All fields required"});
         }
 
-        const userData = await superUserService.findUser({username, password});
+        let userData;
+        try{
+            userData = await superUserService.findUser({username, password});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
 
         console.log(userData)
 
@@ -55,8 +77,70 @@ class SuperUserController{
 
     static createAdmin = async (req, res)=>{
         const {name, username, password} = req.body;
-        console.log("create admin incomplete")
-        res.json({message:"create admin incomplete"});
+
+        if(!name || !username || !password){
+            return res.status(400).json({message:"All fields required"});
+        }
+
+        try{
+            const adminExist = await AdminService.checkUsername(username);
+            if(adminExist !== null){
+                console.log(adminExist);
+                return res.status(400).json({message:"username already exist"});
+            }
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
+
+        let admin;
+        try{
+            admin = await AdminService.createAdmin({name, username, password});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
+
+        return res.status(201).json({message:"admin created success"});
+    }
+
+    static removeAdmin = async (req, res) => {
+        const {id} = req.body;
+        if(!id) {
+            return res.status(400).json({message:"Invalid request"});
+        }
+
+        let removed;
+        try{
+            removed = await AdminService.removeAdmin({id});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
+
+        if(removed.deletedCount === 0){
+            return res.status(404).json({message:"admin not found not deleted"})
+        }
+        
+        return res.json({message:"admin deleted success"})
+
+    }
+
+    static getAdmins = async (req, res)=>{
+        let admins;
+        try{
+            admins = await AdminService.getAdmins();
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({message:"DB error"})
+        }
+
+        if(admins.length === 0){
+            return res.json({message:"no admins"});
+        }
+
+        return res.json(admins);
+
     }
 
 }

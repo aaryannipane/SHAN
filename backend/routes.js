@@ -10,6 +10,8 @@ const router = express.Router();
 router.post('/api/create-superuser', SuperUserController.create);
 router.post('/api/login-superuser', SuperUserController.loginUser);
 router.post('/api/create-admin', AuthMiddleware.superUserAuth, SuperUserController.createAdmin);
+router.post('/api/remove-admin', AuthMiddleware.superUserAuth, SuperUserController.removeAdmin);
+router.post('/api/get-admins', AuthMiddleware.superUserAuth, SuperUserController.getAdmins);
 
 
 
