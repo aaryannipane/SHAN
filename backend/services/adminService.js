@@ -24,6 +24,11 @@ class AdminService{
         return admins;
     }
 
+    static verifyAdmin = async (id)=>{
+        const admin = await AdminModel.findOne({_id:id});
+        return admin;
+    }
+
 }
 
 export default AdminService;
