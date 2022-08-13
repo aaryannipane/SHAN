@@ -11,6 +11,12 @@ class superUserService {
         }
     }
 
+    static checkUsername = async (username) => {
+        const superUser = await SuperUserModel.findOne({username});
+        // console.log(admin);
+        return superUser;
+    }
+
     static findUser = async ({username, password}) => {
         const user = await SuperUserModel.findOne({$and:[{username: username}, {password: password}]});
         return user;
