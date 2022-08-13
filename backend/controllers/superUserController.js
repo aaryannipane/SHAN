@@ -35,9 +35,12 @@ class SuperUserController{
         res.cookie("username", superUser.username, {
             httpOnly: true
         })
+        res.cookie("issuper", superUser.isSuper, {
+            httpOnly: true
+        })
 
         // send user data to frontend with isSuper as true and auth true
-        res.json({user: {id: superUser._id, username: superUser.username}, auth: true, isSuper: true});
+        res.json({user: {id: superUser._id, username: superUser.username}, auth: true, isSuper: true, isAdmin:false, isNurse:false});
 
     }
     
@@ -71,8 +74,12 @@ class SuperUserController{
         })
 
         // send req with msg 
-        return res.json({user:{id:userData._id, username:userData.username}, isSuper:true, auth:true})
+        return res.json({user:{id:userData._id, username:userData.username}, isSuper:true, isAdmin:false, isNurse:false, auth:true})
 
+    }
+
+    static logoutSuper = async (req, res) => {
+        console.log("pendding")
     }
 
     static createAdmin = async (req, res)=>{

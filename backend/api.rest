@@ -1,3 +1,4 @@
+# create super user
 POST http://localhost:5500/api/create-superuser HTTP/1.1
 Content-Type: application/json
 
@@ -9,6 +10,7 @@ Content-Type: application/json
 
 ###
 
+# login-superuser
 POST http://localhost:5500/api/login-superuser HTTP/1.1
 Content-Type: application/json
 
@@ -19,6 +21,54 @@ Content-Type: application/json
 
 ###
 
+# create admin
+POST http://localhost:5500/api/create-admin HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Aryan Nipane",
+    "username":"nipanearyan",
+    "password":"0po3nsf*3&@"
+}
+
+###
+
+# get all admins
+POST http://localhost:5500/api/get-admins HTTP/1.1
+Content-Type: application/json
+
+{}
+
+###
+
+# remove admin
+POST http://localhost:5500/api/remove-admin HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"62f7ee9041dbd708b0eb64c8"
+}
+
+###
+
+# refresh auth
+GET http://localhost:5500/api/refresh HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+
+
+
+
+
+
+
+###
+
+# testing route not the part of project
 POST http://localhost:5500/api/test HTTP/1.1
 Content-Type: application/json
 
