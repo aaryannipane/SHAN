@@ -3,16 +3,16 @@ import superUserService from "../services/superUserService.js";
 
 class SuperUserController{
     static create = async (req, res)=>{
-        const {name, username, password} = req.body;
+        const {name, phone, password} = req.body;
 
-        if(!name || !username || !password){
+        if(!name || !phone || !password){
             return res.status(400).json({message:"All fields are required"});
         }
 
         try{
-            const superUserExist = await superUserService.checkUsername(username);
+            const superUserExist = await superUserService.checkPhone(phone);
             if(superUserExist !== null){
-                return res.status(400).json({message:"username already exist"});
+                return res.status(400).json({message:"phone already exist"});
             }
         } catch (err) {
             console.log(err);
@@ -22,78 +22,71 @@ class SuperUserController{
         // save user info in database 
         let superUser;
         try{
-            superUser = await superUserService.createSuperUser({name, username, password});
+            superUser = await superUserService.createSuperUser({name, phone, password});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"})
         }
 
-        // send username in cookies to client
-        res.cookie("id", superUser._id, {
-            httpOnly: true
-        })
-        res.cookie("username", superUser.username, {
-            httpOnly: true
-        })
-        res.cookie("issuper", superUser.isSuper, {
-            httpOnly: true
-        })
-
         // send user data to frontend with isSuper as true and auth true
-        res.json({user: {id: superUser._id, username: superUser.username}, auth: true, isSuper: true, isAdmin:false, isNurse:false});
+        res.json({message:"superueser created success"});
 
     }
     
     static loginUser = async (req, res)=>{
-        const {username, password} = req.body;
+        const {phone, password} = req.body;
 
-        if(!username || !password){
+        if(!phone || !password){
             return res.status(400).json({message:"All fields required"});
         }
 
         let userData;
         try{
-            userData = await superUserService.findUser({username, password});
+            userData = await superUserService.findUser({phone, password});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"})
         }
 
-        console.log(userData)
-
         if(!userData){
-            return res.status(401).json({message:"Invalid User"});
+            return res.status(401).json({message:"Invalid phone or Password"});
         }
 
-        // send username in cookies to client
+        // send phone in cookies to client
         res.cookie("id", userData.id, {
             httpOnly: true
         })
-        res.cookie("username", userData.username, {
+        res.cookie("phone", userData.phone, {
+            httpOnly: true
+        })
+        res.cookie("role", userData.role, {
             httpOnly: true
         })
 
         // send req with msg 
-        return res.json({user:{id:userData._id, username:userData.username}, isSuper:true, isAdmin:false, isNurse:false, auth:true})
+        return res.json({user:{id:userData.id, phone:userData.phone}, auth:true})
 
     }
 
     static logoutSuper = async (req, res) => {
-        console.log("pendding")
+        res.clearCookie("id");
+        res.clearCookie("phone");
+        res.clearCookie("role")
+        res.json({message:"logout success", user:false, auth:false})
     }
 
     static createAdmin = async (req, res)=>{
-        const {name, username, password} = req.body;
+        const {name, phone, password} = req.body;
 
-        if(!name || !username || !password){
+        if(!name || !phone || !password){
             return res.status(400).json({message:"All fields required"});
         }
 
         try{
-            const adminExist = await AdminService.checkUsername(username);
+            const adminExist = await AdminService.checkPhone(phone);
             if(adminExist !== null){
                 console.log(adminExist);
-                return res.status(400).json({message:"username already exist"});
+                return res.status(400).json({message:"phone already exist"});
             }
         } catch (err) {
             console.log(err);
@@ -102,7 +95,7 @@ class SuperUserController{
 
         let admin;
         try{
-            admin = await AdminService.createAdmin({name, username, password});
+            admin = await AdminService.createAdmin({name, phone, password});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"})

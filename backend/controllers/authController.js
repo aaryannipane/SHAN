@@ -1,54 +1,65 @@
 import AdminService from "../services/adminService.js";
+import NurseService from "../services/nurseService.js";
 import superUserService from "../services/superUserService.js";
 
 class AuthController{
     static refresh = async (req, res)=>{
-        const {id, username, issuper, isadmin, isnurse} = req.cookies;
-        console.log(id, username, issuper, isadmin, isnurse);
+        const {id, phone, role} = req.cookies;
+        console.log(id, phone, role);
 
-        // check id and username is present or not in cookie
-        if(!id || !username){
-            return res.status(400).json({message:"All fields are required"})
+        // check id and phone is present or not in cookie
+        if(!id || !phone || !role){
+            return res.status(401).json({message:"Invalid User"})
         }
 
-        if(issuper){
-            let superUser;
+        let user;
+        if(role === "superuser"){
             try{
-                superUser = await superUserService.verifyUser(id);
+                user = await superUserService.verifyUser(id, phone);
 
-                if(superUser === null){
+                if(user === null){
                     return res.status(401).json({message:"Invalid User"})
                 }
 
-                return res.json({user:{id:superUser._id, username:superUser.username}, isSuper:superUser.isSuper, isAdmin:false, isNurse:false, auth:true})
+                // return res.json({user:{id:superUser._id, phone:superUser.phone}, auth:true})
 
             } catch (err) {
                 console.log(err);
                 return res.status(500).json({message:"DB error"})
             }
-        } else if (isadmin) {
-            let admin;
+        } else if (role === "admin") {
             try{
-                admin = await AdminService.verifyUser(id);
+                user = await AdminService.verifyAdmin(id, phone);
 
-                if(admin === null){
+                if(user === null){
                     return res.status(401).json({message:"Invalid User"})
                 }
 
-                return res.json({user:{id:admin._id, username:admin.username}, isSuper:false, isAdmin: admin.isAdmin, isNurse:false, auth:true})
+                // return res.json({user:{id:admin._id, phone:admin.phone}, auth:true})
 
             } catch (err) {
                 console.log(err);
                 return res.status(500).json({message:"DB error"})
             }
-        } else if (isnurse) {
-            console.log("nurse part remaining")
+        } else if(role === "nurse") {
+            try{
+                user = await NurseService.verifyNurse(id, phone);
+
+                if(user === null){
+                    return res.status(401).json({message:"Invalid User"})
+                }
+
+                // return res.json({user:{id:nurse._id, phone:nurse.phone}, auth:true})
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).json({message:"DB error"})
+            }
         } else {
-            console.log("nothing")
-        }
-
-        return res.json({username});
+            return res.status(401).json({message:"Invalid User"})
+        }  
         
+        return res.json({user:{id:user._id, phone:user.phone}, auth:true})
     }
 }
 
