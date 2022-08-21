@@ -1,4 +1,5 @@
 import AdminModel from "../models/adminModel.js"
+import bcrypt from "bcryptjs";
 
 class AdminService{
     static createAdmin = async (data) => {
@@ -30,8 +31,16 @@ class AdminService{
     }
 
     static loginAdmin = async ({phone, password}) => {
-        const admin = await AdminModel.findOne({$and:[{phone}, {password: password}]});
-        return admin;
+        let admin = await AdminModel.findOne({phone});
+
+        if(admin){
+            const result = await bcrypt.compare(password, admin.password);
+            if(result){
+                return admin;
+            }
+        }
+
+        return admin=null;
     }
 
 }

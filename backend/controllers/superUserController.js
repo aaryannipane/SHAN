@@ -1,5 +1,6 @@
 import AdminService from "../services/adminService.js";
 import superUserService from "../services/superUserService.js";
+import bcrypt from "bcryptjs";
 
 class SuperUserController{
     static create = async (req, res)=>{
@@ -19,17 +20,19 @@ class SuperUserController{
             return res.status(500).json({message:"DB error"})
         }
 
+        const encPassword = await bcrypt.hash(password, 10);
+
         // save user info in database 
         let superUser;
         try{
-            superUser = await superUserService.createSuperUser({name, phone, password});
+            superUser = await superUserService.createSuperUser({name, phone, password:encPassword});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"})
         }
 
         // send user data to frontend with isSuper as true and auth true
-        res.json({message:"superueser created success"});
+        res.status(201).json({message:"superueser created success"});
 
     }
     
@@ -39,6 +42,8 @@ class SuperUserController{
         if(!phone || !password){
             return res.status(400).json({message:"All fields required"});
         }
+
+
 
         let userData;
         try{
@@ -93,9 +98,11 @@ class SuperUserController{
             return res.status(500).json({message:"DB error"})
         }
 
+        const encPassword = await bcrypt.hash(password, 10);
+
         let admin;
         try{
-            admin = await AdminService.createAdmin({name, phone, password});
+            admin = await AdminService.createAdmin({name, phone, password: encPassword});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"})
@@ -138,6 +145,8 @@ class SuperUserController{
         if(admins.length === 0){
             return res.json({message:"no admins"});
         }
+
+        const newAdmin = admins.map(admin => admin.password = null);
 
         return res.json(admins);
 

@@ -1,5 +1,6 @@
 import AdminService from "../services/adminService.js";
 import NurseService from "../services/nurseService.js";
+import bcrypt from "bcryptjs"
 
 class AdminController{
     static loginAdmin = async (req, res) => {
@@ -68,9 +69,11 @@ class AdminController{
             return res.status(500).json({message:"DB error"});
         }
 
+        const encPassword = await bcrypt.hash(password, 10);
+
         let nurse;
         try{
-            nurse = await NurseService.createNurse({name, phone, password, createdBy:adminID});
+            nurse = await NurseService.createNurse({name, phone, password:encPassword, createdBy:adminID});
         } catch (err) {
             console.log(err);
             return res.status(500).json({message:"DB error"});
@@ -118,6 +121,8 @@ class AdminController{
         if(nurses.length === 0){
             return res.json({message:"no nurses"});
         }
+
+        nurses.map(nurse => nurse.password = null);
 
         return res.json(nurses);
 
