@@ -12,8 +12,8 @@ class AdminService{
         return removed;
     }
 
-    static checkUsername = async (username) => {
-        const admin = await AdminModel.findOne({username});
+    static checkPhone = async (phone) => {
+        const admin = await AdminModel.findOne({phone});
         // console.log(admin);
         return admin;
     }
@@ -24,8 +24,13 @@ class AdminService{
         return admins;
     }
 
-    static verifyAdmin = async (id)=>{
-        const admin = await AdminModel.findOne({_id:id});
+    static verifyAdmin = async (id, phone)=>{
+        const admin = await AdminModel.findOne({$and:[{_id: id}, {phone}]});
+        return admin;
+    }
+
+    static loginAdmin = async ({phone, password}) => {
+        const admin = await AdminModel.findOne({$and:[{phone}, {password: password}]});
         return admin;
     }
 

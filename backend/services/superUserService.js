@@ -11,19 +11,19 @@ class superUserService {
         }
     }
 
-    static checkUsername = async (username) => {
-        const superUser = await SuperUserModel.findOne({username});
+    static checkPhone = async (phone) => {
+        const superUser = await SuperUserModel.findOne({phone});
         // console.log(admin);
         return superUser;
     }
 
-    static findUser = async ({username, password}) => {
-        const user = await SuperUserModel.findOne({$and:[{username: username}, {password: password}]});
+    static findUser = async ({phone, password}) => {
+        const user = await SuperUserModel.findOne({$and:[{phone}, {password: password}]});
         return user;
     }
 
-    static verifyUser = async (id)=>{
-        const user = await SuperUserModel.findOne({_id:id});
+    static verifyUser = async (id, phone)=>{
+        const user = await SuperUserModel.findOne({$and:[{_id:id, phone}]});
         return user;
     }
 }
