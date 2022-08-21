@@ -1,4 +1,5 @@
 import NurseModel from "../models/nurseModel.js";
+import bcrypt from "bcryptjs";
 
 class NurseService{
     static createNurse = async (data) => {
@@ -27,8 +28,14 @@ class NurseService{
     }
 
     static loginNurse = async (phone, password) => {
-        const nurse = await NurseModel.findOne({$and:[{phone}, {password}]});
-        return nurse;
+        let nurse = await NurseModel.findOne({phone});
+        if(nurse){
+            const result = bcrypt.compare(password, nurse.password);
+            if(result){
+                return nurse;
+            }
+        }
+        return nurse=null;
     }
 }
 

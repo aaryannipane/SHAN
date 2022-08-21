@@ -1,4 +1,5 @@
 import SuperUserModel from "../models/superUserModel.js";
+import bcrypt from "bcryptjs";
 
 class superUserService {
     static createSuperUser = async (data)=>{
@@ -18,8 +19,15 @@ class superUserService {
     }
 
     static findUser = async ({phone, password}) => {
-        const user = await SuperUserModel.findOne({$and:[{phone}, {password: password}]});
-        return user;
+
+        let user = await SuperUserModel.findOne({phone});
+        if(user){
+            const result = await bcrypt.compare(password, user.password);
+            if(result){
+                return user;
+            }
+        }
+        return user = null;
     }
 
     static verifyUser = async (id, phone)=>{
