@@ -39,6 +39,8 @@ class NurseController{
         res.clearCookie("role")
         res.json({message:"logout success"})
     }
+
+    // add details 
 }
 
 export default NurseController;
