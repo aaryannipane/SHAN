@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
     "name":"Aryan Nipane",
-    "phone":"8657295928",
+    "phone":"86572959428",
     "password":"admin"
 }
 
@@ -54,7 +54,7 @@ POST http://localhost:5500/api/remove-admin HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":"63023ab1f5738cc7f6e1806e"
+    "id":"632db47053945ce2f8f51a87"
 }
 
 ###
