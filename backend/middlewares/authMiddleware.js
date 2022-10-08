@@ -1,20 +1,43 @@
+import AdminService from "../services/adminService.js";
+import NurseService from "../services/nurseService.js";
 import superUserService from "../services/superUserService.js";
 
 class AuthMiddleware{
 
-    static superUserAuth = async (req, res, next)=>{
+    static UserAuth = async (req, res, next)=>{
         try{
-            const {id, username} = req.cookies;
+            const {id, phone, role} = req.cookies;
 
-            if(!id || !username){
+            if(!id || !phone || !role){
                 throw new Error();
             }
 
-            const userData = await superUserService.verifyUser(id);
-
-            if(!userData || userData.username !== username){
-                throw new Error();
+            let userData;
+            if(role === "superuser"){
+                try{
+                    userData = await superUserService.verifyUser(id, phone);
+                } catch (err) {
+                    console.log(err);
+                    return res.status(500).json({message:"DB error"})
+                }
+            }else if(role === "admin"){
+                try{
+                    userData = await AdminService.verifyAdmin(id, phone);
+                } catch (err) {
+                    console.log(err);
+                    return res.status(500).json({message:"DB error"})
+                }
+            }else if(role === "nurse"){
+                try{
+                    userData = await NurseService.verifyNurse(id, phone);
+                } catch (err) {
+                    console.log(err);
+                    return res.status(500).json({message:"DB error"})
+                }
+            } else {
+                throw new Error()
             }
+
 
             console.log(userData);
             req.user = userData;
