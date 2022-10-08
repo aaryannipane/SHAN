@@ -1,0 +1,1 @@
+// dept_id (ref), bed_no, patient_id (ref)
