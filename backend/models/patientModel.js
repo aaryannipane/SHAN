@@ -92,29 +92,31 @@ const PatientSchema = new mongoose.Schema({
     pending_investigation: [{ type: String }],
 
     // scales
-    gcs: {type:mongoose.Decimal128},
-    pain_scale: {type:mongoose.Decimal128},
-    braden_scale: {type:mongoose.Decimal128},
-    fall_risk_assessment: {type:mongoose.Decimal128},
-    visual_inflammation_phlebitis_score: {type:mongoose.Decimal128},
+    gcs: { type: mongoose.Decimal128 },
+    pain_scale: { type: mongoose.Decimal128 },
+    braden_scale: { type: mongoose.Decimal128 },
+    fall_risk_assessment: { type: mongoose.Decimal128 },
+    visual_inflammation_phlebitis_score: { type: mongoose.Decimal128 },
 
     // nursing care plan
     // trans_out: {type: String},
     // todo
 
     // file
-    dama: {type: String},
-    discharge: {type: String},
-    death: {type: String},
+    dama: { type: String },
+    discharge: { type: String },
+    death: { type: String },
 
     // special considiration
-    special_considiration: {type: String},
+    special_considiration: { type: String },
 
     // handover
     // taken_sign: {type: String},
     // given_sign: {type: String},
-
-
   },
   history: { type: Array },
 });
+
+const PatientModel = mongoose.model("Patient", PatientSchema, "patients");
+
+export default PatientModel;
