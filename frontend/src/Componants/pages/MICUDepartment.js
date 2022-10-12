@@ -6,7 +6,7 @@ function MICUDepartment() {
     let navigate= useNavigate()
   return (
     <>
-    <h1>Select Department</h1>
+    <h1>Select MICU Department</h1>
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg" onClick={()=>{
     navigate("/MICUBed1")
@@ -35,6 +35,11 @@ function MICUDepartment() {
       Bed 8
       </Button>
     </div>
+    <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/SelectDepartment")
+   }}>
+       Back
+      </Button>
     </>
   );
 }
