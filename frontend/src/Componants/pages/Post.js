@@ -61,7 +61,7 @@ function Post() {
       <Button variant="primary" type="submit"   onClick={()=>{
     navigate("/DatabaseNurse")
    }}>
-        Submit
+        Add Nurse
       </Button>
     </Form>
    </>

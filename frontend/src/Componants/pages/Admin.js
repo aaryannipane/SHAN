@@ -11,7 +11,7 @@ const Admin = () => {
         <Button variant="primary" size="lg" onClick={()=>{
     navigate("/Post")
    }}>
-          Add Admin
+          Add Nurse
         </Button>{' '}
        
       </div>
