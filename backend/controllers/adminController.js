@@ -126,6 +126,7 @@ class AdminController {
     let nurses;
     try {
       nurses = await NurseService.getNurses();
+      // console.log(nurses);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "DB error" });

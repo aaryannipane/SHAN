@@ -82,8 +82,8 @@ POST http://localhost:5500/api/create-nurse HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Nurse",
-    "phone":"8657295928",
+    "name":"Nursewa",
+    "phone":"8657295929",
     "password":"nurse"
 }
 
@@ -93,7 +93,7 @@ POST http://localhost:5500/api/remove-nurse HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":"62fa06e151382c266e0ec62c"
+    "id":"6302483bd7ecbf7cc57be47f"
 }
 
 ###
