@@ -1,8 +1,8 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter,Navigate ,Route, Routes } from "react-router-dom";
-import Home from './Componants/pages/Home';
-import Admin from './Componants/pages/Admin';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Home from "./Componants/pages/Home";
+import Admin from "./Componants/pages/Admin";
 import Navbar from "./Componants/pages/Navbar";
 import Post from "./Componants/pages/Post";
 import Dashboarsd from "./Componants/pages/Dashboarsd";
@@ -26,53 +26,73 @@ import Investigations from "./Componants/pages/Investigations";
 import Scales from "./Componants/pages/Scales";
 import Nursingcareplanfile from "./Componants/pages/Nursingcareplanfile";
 import Handover from "./Componants/pages/Handover";
-
-
-
+import { useSelector } from "react-redux";
+import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 
 function App() {
-  let isLogged =true
-  let data={
-      'st':'user not logged   in'
-  }
+  const { user, isAuth } = useSelector((state) => state.auth);
+  let isLogged = isAuth;
+  let data = {
+    st: "user not logged   in",
+  };
 
-  return (
+  const { loading } = useLoadingWithRefresh();
+
+  return loading ? (
+    <h1>Loading</h1>
+  ) : (
     <>
-    <BrowserRouter>
+      <BrowserRouter>
         <Navbar />
-            <Routes>
-                
-                    <Route path="/" element={<Home />}   />
-                    <Route path="/Admin" element={<Admin/>}   />
-                    <Route path="/Post" element={<Post/>}   />
-                    <Route path="*" element={<h1>Error 404 pages not found!!</h1>}  />
-                    <Route path="/dashboard" element={isLogged ?<Dashboarsd /> :<Navigate  to="/loginpage" replace state={data}/>}   />
-                    <Route path="/Nurse" element={<Nurse />}   />
-                    <Route path="/DatabaseNurse" element={<DatabaseNurse />}   />
-                    <Route path="/SelectHospital" element={<SelectHospital />}   />
-                    <Route path="/SelectDepartment" element={<SelectDepartment />}   />
-                    <Route path="/MICUDepartment" element={<MICUDepartment />}   />
-                    <Route path="/MICUBed1" element={<MICUBed1 />}   />
-                    <Route path="/Vitalsigns" element={<Vitalsigns />}   />
-                    <Route path="/Rhythm" element={<Rhythm />}   />
-                    <Route path="/Oxygensupport" element={<Oxygensupport />}   />
-                    <Route path="/Ventilatormode" element={<Ventilatormode />}   />
-                    <Route path="/Ventilatorsupport" element={<Ventilatorsupport />}   />
-                    <Route path="/InvansiveLines" element={<InvansiveLines />}   />
-                    <Route path="/Drains" element={<Drains />}   />
-                    <Route path="/Emergencymedication" element={<Emergencymedication />}   />
-                    <Route path="/Bloodproductstransfusion" element={<Bloodproductstransfusion />}   />
-                    <Route path="/Infusionpump" element={<Infusionpump />}   />
-                    <Route path="/Investigations" element={<Investigations />}   />
-                    <Route path="/Scales" element={<Scales />}   />
-                    <Route path="/Nursingcareplanfile" element={<Nursingcareplanfile />}   />
-                    <Route path="/Handover" element={<Handover />}   />
-
-                                    
-             </Routes>
-             </BrowserRouter>
-       </>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Admin" element={<Admin />} />
+          <Route path="/Post" element={<Post />} />
+          <Route path="/dashboard" element={<Dashboarsd />} />
+          {/* <Route
+            path="/dashboard"
+            element={
+              isLogged ? (
+                <Dashboarsd />
+              ) : (
+                <Navigate to="/loginpage" replace state={data} />
+              )
+            }
+          /> */}
+          <Route path="/Nurse" element={<Nurse />} />
+          <Route path="/DatabaseNurse" element={<DatabaseNurse />} />
+          <Route path="/SelectHospital" element={<SelectHospital />} />
+          <Route path="/SelectDepartment" element={<SelectDepartment />} />
+          <Route path="/MICUDepartment" element={<MICUDepartment />} />
+          <Route path="/MICUBed1" element={<MICUBed1 />} />
+          <Route path="/Vitalsigns" element={<Vitalsigns />} />
+          <Route path="/Rhythm" element={<Rhythm />} />
+          <Route path="/Oxygensupport" element={<Oxygensupport />} />
+          <Route path="/Ventilatormode" element={<Ventilatormode />} />
+          <Route path="/Ventilatorsupport" element={<Ventilatorsupport />} />
+          <Route path="/InvansiveLines" element={<InvansiveLines />} />
+          <Route path="/Drains" element={<Drains />} />
+          <Route
+            path="/Emergencymedication"
+            element={<Emergencymedication />}
+          />
+          <Route
+            path="/Bloodproductstransfusion"
+            element={<Bloodproductstransfusion />}
+          />
+          <Route path="/Infusionpump" element={<Infusionpump />} />
+          <Route path="/Investigations" element={<Investigations />} />
+          <Route path="/Scales" element={<Scales />} />
+          <Route
+            path="/Nursingcareplanfile"
+            element={<Nursingcareplanfile />}
+          />
+          <Route path="/Handover" element={<Handover />} />
+          <Route path="*" element={<h1>Error 404 pages not found!!</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
-export default App
+export default App;

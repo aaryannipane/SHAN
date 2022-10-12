@@ -33,7 +33,7 @@ const Admin = () => {
       <h1>Admin Page</h1>
       <Form style={{ width: "41%", margin: "auto" }}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter phone number"
@@ -43,7 +43,7 @@ const Admin = () => {
             }}
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            We'll never share your phone number with anyone else.
           </Form.Text>
         </Form.Group>
 
@@ -58,12 +58,9 @@ const Admin = () => {
             }}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
         <div className="mb-2">
           <Button variant="primary" size="lg" onClick={handleSubmit}>
-            Add Nurse
+            Login
           </Button>
         </div>
       </Form>

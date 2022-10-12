@@ -13,7 +13,7 @@ import YAML from "yamljs";
 const swaggerDocument = YAML.load("./swagger.yaml");
 
 const corsOption = {
-  Credential: true,
+  credentials: true,
   origin: ["http://localhost:3000"],
 };
 app.use(cors(corsOption));
