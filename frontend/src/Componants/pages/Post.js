@@ -14,8 +14,8 @@ function Post() {
    <Form>
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control type="Phone Number" placeholder="Phone Number" />
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridPassword">
@@ -58,12 +58,18 @@ function Post() {
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
 
-      <Button variant="primary" type="submit"   onClick={()=>{
+      <Button variant="dark" type="submit"   onClick={()=>{
     navigate("/DatabaseNurse")
    }}>
         Add Nurse
       </Button>
     </Form>
+    <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/Admin")
+   }}>
+       Back
+      </Button>
+    
    </>
   )
 }
