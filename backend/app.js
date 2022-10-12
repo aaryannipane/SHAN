@@ -7,21 +7,20 @@ import cookieParser from "cookie-parser";
 import router from "./routes.js";
 
 const app = express();
-// const port = process.env.PORT || 5500;
 
-import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
-const swaggerDocument = YAML.load('./swagger.yaml');
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use(cookieParser())
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 const corsOption = {
-	Credential:true,
-}
+  Credential: true,
+  origin: ["http://localhost:3000"],
+};
 app.use(cors(corsOption));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use(cookieParser());
 
 // connection to database
 connectDB();
@@ -30,9 +29,8 @@ app.use(express.json());
 
 app.use(router);
 
-app.get("/", (req, res)=>{
-	res.send("<h1>Hello from server</h1>")
-})
-
+app.get("/", (req, res) => {
+  res.send("<h1>Hello from server</h1>");
+});
 
 export default app;
