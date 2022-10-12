@@ -6,13 +6,9 @@ import { setAuth } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 const Admin = () => {
-<<<<<<< HEAD
   const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-=======
     let navigate= useNavigate()
     return (
         <>
@@ -45,8 +41,7 @@ const Admin = () => {
        Back
       </Button>
       </div>
-    </Form>
->>>>>>> aff2e22 (frontend update)
+</Form>
 
   const handleSubmit = async () => {
     if (!phone || !password) {
