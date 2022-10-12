@@ -35,7 +35,15 @@ class AdminController {
     });
 
     // send json data to client
-    return res.json({ user: { id: admin.id, phone: admin.phone }, auth: true });
+    return res.json({
+      user: {
+        id: admin.id,
+        phone: admin.phone,
+        name: admin.name,
+        role: admin.role,
+      },
+      auth: true,
+    });
   };
 
   static logoutAdmin = async (req, res) => {

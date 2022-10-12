@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { adminLogin } from "../../http";
+import { setAuth } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 const Admin = () => {
   const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const data = { phone: phone, password: password };
-    const response = await adminLogin(data);
+    if (!phone || !password) {
+      alert("incomplete fields");
+      return;
+    }
 
-    console.log(response);
+    try {
+      const { data } = await adminLogin({ phone, password });
+      dispatch(setAuth(data));
+      navigate("/DatabaseNurse");
+    } catch (e) {
+      alert("Enter valid Phone number and password");
+      console.log(e);
+    }
   };
 
   return (
