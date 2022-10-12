@@ -102,6 +102,11 @@ function MICUBed1() {
    }}>
         Submit
       </Button>
+      <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/MICUDepartment")
+   }}>
+       Back
+      </Button>
     </>
   )
 }

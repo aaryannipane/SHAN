@@ -9,10 +9,10 @@ export default function Nurse() {
     <h1>Nurse Login</h1>
     <Form style={{width:"40%",margin:"auto"}}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Label>Phone Number</Form.Label>
+        <Form.Control type="number" placeholder="Enter Number" />
         <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
+          We'll never share your Phone Number with anyone else.
         </Form.Text>
       </Form.Group>
 
@@ -23,13 +23,19 @@ export default function Nurse() {
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={()=>{
+      <Button variant="primary"size="lg"  type="submit" onClick={()=>{
     navigate("/SelectHospital")
    }}>
         Submit
       </Button>
+
+      <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/Dashboard")
+   }}>
+       Back
+      </Button>
     </Form>
-     
+       
     </>
   );
 }
