@@ -12,7 +12,11 @@ function SelectHospital() {
        MGM Hospital                 
       </Button>
     </div>
-
+    <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/Nurse")
+   }}>
+       Back
+      </Button>
     </>
   );
 }
