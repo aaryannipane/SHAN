@@ -19,7 +19,7 @@ const Admin = () => {
   return (
     <>
       <h1>Admin Page</h1>
-      <Form style={{ width: "40%", margin: "auto" }}>
+      <Form style={{ width: "41%", margin: "auto" }}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
