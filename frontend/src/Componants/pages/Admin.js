@@ -24,7 +24,7 @@ const Admin = () => {
       </Form.Group>
       <div className="mb-2">
         <Button variant="primary" size="lg" onClick={()=>{
-    navigate("/Post")
+    navigate("/DatabaseNurse")
    }}>
     
           Login

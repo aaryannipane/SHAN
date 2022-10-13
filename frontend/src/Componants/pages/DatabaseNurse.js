@@ -1,7 +1,10 @@
 import Table from 'react-bootstrap/Table';
-
+import {Form,Button} from "react-bootstrap"; 
+import { useNavigate } from 'react-router-dom';
 function DatabaseNurse() {
+  let navigate= useNavigate()
   return (
+    <>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -30,7 +33,19 @@ function DatabaseNurse() {
           <td>@twitter</td>
         </tr>
       </tbody>
+      <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/Post")
+   }}>
+       Add Nurse
+      </Button>
+      <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/Dashboard")
+   }}>
+       Back
+      </Button>
     </Table>
+    
+    </>
   );
 }
 
