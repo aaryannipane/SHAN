@@ -5,30 +5,30 @@ import superUserService from "../services/superUserService.js";
 class AuthMiddleware {
   static UserAuth = async (req, res, next) => {
     try {
-      const { id, phone, role } = req.cookies;
+      const { id, username, role } = req.cookies;
 
-      if (!id || !phone || !role) {
+      if (!id || !username || !role) {
         throw new Error();
       }
 
       let userData;
       if (role === "superuser") {
         try {
-          userData = await superUserService.verifyUser(id, phone);
+          userData = await superUserService.verifyUser(id, username);
         } catch (err) {
           console.log(err);
           return res.status(500).json({ message: "DB error" });
         }
       } else if (role === "admin") {
         try {
-          userData = await AdminService.verifyAdmin(id, phone);
+          userData = await AdminService.verifyAdmin(id, username);
         } catch (err) {
           console.log(err);
           return res.status(500).json({ message: "DB error" });
         }
       } else if (role === "nurse") {
         try {
-          userData = await NurseService.verifyNurse(id, phone);
+          userData = await NurseService.verifyNurse(id, username);
         } catch (err) {
           console.log(err);
           return res.status(500).json({ message: "DB error" });
