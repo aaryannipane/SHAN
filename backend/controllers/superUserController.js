@@ -4,16 +4,16 @@ import bcrypt from "bcryptjs";
 
 class SuperUserController {
   static create = async (req, res) => {
-    const { name, phone, password } = req.body;
+    const { name, username, password } = req.body;
 
-    if (!name || !phone || !password) {
+    if (!name || !username || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     try {
-      const superUserExist = await superUserService.checkPhone(phone);
+      const superUserExist = await superUserService.checkUsername(username);
       if (superUserExist !== null) {
-        return res.status(400).json({ message: "phone already exist" });
+        return res.status(400).json({ message: "username already exist" });
       }
     } catch (err) {
       console.log(err);
@@ -27,7 +27,7 @@ class SuperUserController {
     try {
       superUser = await superUserService.createSuperUser({
         name,
-        phone,
+        username,
         password: encPassword,
       });
     } catch (err) {
@@ -40,29 +40,29 @@ class SuperUserController {
   };
 
   static loginUser = async (req, res) => {
-    const { phone, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!phone || !password) {
+    if (!username || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
 
     let userData;
     try {
-      userData = await superUserService.findUser({ phone, password });
+      userData = await superUserService.findUser({ username, password });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "DB error" });
     }
 
     if (!userData) {
-      return res.status(401).json({ message: "Invalid phone or Password" });
+      return res.status(401).json({ message: "Invalid Username or Password" });
     }
 
-    // send phone in cookies to client
+    // send Username in cookies to client
     res.cookie("id", userData.id, {
       httpOnly: true,
     });
-    res.cookie("phone", userData.phone, {
+    res.cookie("username", userData.username, {
       httpOnly: true,
     });
     res.cookie("role", userData.role, {
@@ -73,7 +73,7 @@ class SuperUserController {
     return res.json({
       user: {
         id: userData.id,
-        phone: userData.phone,
+        username: userData.username,
         name: userData.name,
         role: userData.role,
       },
@@ -83,23 +83,23 @@ class SuperUserController {
 
   static logoutSuper = async (req, res) => {
     res.clearCookie("id");
-    res.clearCookie("phone");
+    res.clearCookie("username");
     res.clearCookie("role");
     res.json({ message: "logout success", user: false, auth: false });
   };
 
   static createAdmin = async (req, res) => {
-    const { name, phone, password } = req.body;
+    const { name, username, password } = req.body;
 
-    if (!name || !phone || !password) {
+    if (!name || !username || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
 
     try {
-      const adminExist = await AdminService.checkPhone(phone);
+      const adminExist = await AdminService.checkUsername(username);
       if (adminExist !== null) {
         console.log(adminExist);
-        return res.status(400).json({ message: "phone already exist" });
+        return res.status(400).json({ message: "username already exist" });
       }
     } catch (err) {
       console.log(err);
@@ -112,7 +112,7 @@ class SuperUserController {
     try {
       admin = await AdminService.createAdmin({
         name,
-        phone,
+        username,
         password: encPassword,
       });
     } catch (err) {

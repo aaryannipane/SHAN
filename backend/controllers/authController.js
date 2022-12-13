@@ -4,50 +4,50 @@ import superUserService from "../services/superUserService.js";
 
 class AuthController {
   static refresh = async (req, res) => {
-    const { id, phone, role } = req.cookies;
-    console.log(id, phone, role);
+    const { id, username, role } = req.cookies;
+    console.log(id, username, role);
 
-    // check id and phone is present or not in cookie
-    if (!id || !phone || !role) {
+    // check id and username is present or not in cookie
+    if (!id || !username || !role) {
       return res.status(401).json({ message: "Invalid User" });
     }
 
     let user;
     if (role === "superuser") {
       try {
-        user = await superUserService.verifyUser(id, phone);
+        user = await superUserService.verifyUser(id, username);
 
         if (user === null) {
           return res.status(401).json({ message: "Invalid User" });
         }
 
-        // return res.json({user:{id:superUser._id, phone:superUser.phone}, auth:true})
+        // return res.json({user:{id:superUser._id, username:superUser.username}, auth:true})
       } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "DB error" });
       }
     } else if (role === "admin") {
       try {
-        user = await AdminService.verifyAdmin(id, phone);
+        user = await AdminService.verifyAdmin(id, username);
 
         if (user === null) {
           return res.status(401).json({ message: "Invalid User" });
         }
 
-        // return res.json({user:{id:admin._id, phone:admin.phone}, auth:true})
+        // return res.json({user:{id:admin._id, username:admin.username}, auth:true})
       } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "DB error" });
       }
     } else if (role === "nurse") {
       try {
-        user = await NurseService.verifyNurse(id, phone);
+        user = await NurseService.verifyNurse(id, username);
 
         if (user === null) {
           return res.status(401).json({ message: "Invalid User" });
         }
 
-        // return res.json({user:{id:nurse._id, phone:nurse.phone}, auth:true})
+        // return res.json({user:{id:nurse._id, username:nurse.username}, auth:true})
       } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "DB error" });
@@ -59,7 +59,7 @@ class AuthController {
     return res.json({
       user: {
         id: user._id,
-        phone: user.phone,
+        username: user.username,
         name: user.name,
         role: user.role,
       },

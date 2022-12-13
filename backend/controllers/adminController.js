@@ -4,30 +4,30 @@ import bcrypt from "bcryptjs";
 
 class AdminController {
   static loginAdmin = async (req, res) => {
-    const { phone, password } = req.body;
-    console.log(phone, password);
+    const { username, password } = req.body;
+    console.log(username, password);
 
-    if (!phone || !password) {
+    if (!username || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
 
     // get user from database
     let admin;
     try {
-      admin = await AdminService.loginAdmin({ phone, password });
+      admin = await AdminService.loginAdmin({ username, password });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "DB error" });
     }
 
     if (!admin) {
-      return res.status(401).json({ message: "Invalid phone or Password" });
+      return res.status(401).json({ message: "Invalid username or Password" });
     }
     // set cookies
     res.cookie("id", admin.id, {
       httpOnly: true,
     });
-    res.cookie("phone", admin.phone, {
+    res.cookie("username", admin.username, {
       httpOnly: true,
     });
     res.cookie("role", admin.role, {
@@ -38,7 +38,7 @@ class AdminController {
     return res.json({
       user: {
         id: admin.id,
-        phone: admin.phone,
+        username: admin.username,
         name: admin.name,
         role: admin.role,
       },
@@ -48,16 +48,16 @@ class AdminController {
 
   static logoutAdmin = async (req, res) => {
     res.clearCookie("id");
-    res.clearCookie("phone");
+    res.clearCookie("username");
     res.clearCookie("role");
     res.json({ message: "logout success" });
   };
 
   static createNurse = async (req, res) => {
     const { id: adminID, role } = req.cookies;
-    const { name, phone, password } = req.body;
+    const { name, username, password } = req.body;
 
-    if (!adminID || !name || !phone || !password || !role) {
+    if (!adminID || !name || !username || !password || !role) {
       return res.status(400).json({ message: "All fields required" });
     }
 
@@ -67,10 +67,9 @@ class AdminController {
     }
 
     try {
-      const nurseExist = await NurseService.checkPhone(phone);
-
+      const nurseExist = await NurseService.checkUsername(username);
       if (nurseExist !== null) {
-        return res.status(400).json({ message: "phone already exist" });
+        return res.status(400).json({ message: "username already exist" });
       }
     } catch (err) {
       console.log(err);
@@ -83,7 +82,7 @@ class AdminController {
     try {
       nurse = await NurseService.createNurse({
         name,
-        phone,
+        username,
         password: encPassword,
         createdBy: adminID,
       });

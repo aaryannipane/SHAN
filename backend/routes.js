@@ -4,7 +4,6 @@ import AuthController from "./controllers/authController.js";
 import DepartmentController from "./controllers/departmentController.js";
 import NurseController from "./controllers/NurseController.js";
 import SuperUserController from "./controllers/superUserController.js";
-import TestController from "./controllers/testController.js";
 import AuthMiddleware from "./middlewares/authMiddleware.js";
 
 const router = express.Router();
@@ -80,8 +79,5 @@ router.post(
 
 // refresh for all roles
 router.get("/api/refresh", AuthController.refresh);
-
-// TESTING ROUTE
-router.post("/api/test", TestController.test);
 
 export default router;

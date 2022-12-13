@@ -2,27 +2,27 @@ import NurseService from "../services/nurseService.js";
 
 class NurseController {
   static loginNurse = async (req, res) => {
-    const { phone, password } = req.body;
-    if (!phone || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     let nurse;
     try {
-      nurse = await NurseService.loginNurse(phone, password);
+      nurse = await NurseService.loginNurse(username, password);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "DB error" });
     }
 
     if (!nurse) {
-      return res.status(401).json({ message: "Invalid phone or Password" });
+      return res.status(401).json({ message: "Invalid username or Password" });
     }
 
     res.cookie("id", nurse.id, {
       httpOnly: true,
     });
-    res.cookie("phone", nurse.phone, {
+    res.cookie("username", nurse.username, {
       httpOnly: true,
     });
     res.cookie("role", nurse.role, {
@@ -32,7 +32,7 @@ class NurseController {
     res.json({
       user: {
         id: nurse.id,
-        phone: nurse.phone,
+        username: nurse.username,
         name: nurse.name,
         role: nurse.role,
       },
@@ -42,7 +42,7 @@ class NurseController {
 
   static logoutNurse = async (req, res) => {
     res.clearCookie("id");
-    res.clearCookie("phone");
+    res.clearCookie("username");
     res.clearCookie("role");
     res.json({ message: "logout success" });
   };
