@@ -35,10 +35,14 @@ function SelectDepartment() {
         Ortho Ward
       </Button>
     </div>
-    
+    <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/MICUDepartment")
+   }}>
+       Submit
+      </Button>
     
     <Button variant="secondary" size="lg"  onClick={()=>{
-    navigate("/SelectHospital")
+    navigate("/Home")
    }}>
        Back
       </Button>
