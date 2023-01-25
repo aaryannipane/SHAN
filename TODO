@@ -1,0 +1,13 @@
+database
+
+staff model 
+admin
+nurse
+incharge
+teamLeader
+
+
+
+nurse
+create patient
+update data of patient 
