@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -6,19 +5,17 @@ import Table from 'react-bootstrap/Table';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-function MICUBed1() {
+function Bed1d() {
     let navigate= useNavigate()
   return (
     <>
     <Button variant="secondary" size="sm"  onClick={()=>{
-    navigate("/MICUDepartment")
+    navigate("/MICUBed1")
    }}>
        Back
       </Button> 
 
-    
-
-    <Table  striped bordered responsive   >
+      <Table  striped bordered responsive   >
       <thead>
         <tr>
           <th>Time<Button variant="secondary" size="sm"  onClick={()=>{
@@ -30,49 +27,58 @@ function MICUBed1() {
           <th>2:00</th>
           <th>3:00</th>
          
-          <th>Add +</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Pulse</td>
+          <td>Saline(ml)</td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
         
-          <td>+pulse</td>
+          <td>860</td>
           
         </tr>
         <tr>
-          <td>Temp</td>
+          <td>Water(ml)</td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           
-          <td>+Temp</td>
+          <td>880</td>
           
         </tr>
         <tr>
-          <td>BP low</td>
+        <td></td>
+        <td></td>
+        <td>Total in</td>
+        <td>1320</td>
+        </tr>
+
+      </tbody>
+    </Table>
+    <Table  striped bordered responsive   >
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>1:00</th>
+          <th>2:00</th>
+          <th>3:00</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>pee(ml)</td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
           <td>213<td><Button as="input" type="reset" value="Reset" /></td></td>
-          
-          <td>+BP low</td>
+          <td>860</td>
           
         </tr>
       </tbody>
     </Table>
-
-
-
-
-
-
-
-
-
-
 <br>
 </br>
 
@@ -89,7 +95,7 @@ function MICUBed1() {
 </br>
 
 <Button class='A' variant="secondary" size="sm" active  onClick={()=>{
-    navigate("/Bed1d")
+    navigate("/Vitalsigns")
    }}>
         Submit
       </Button>
@@ -98,4 +104,4 @@ function MICUBed1() {
   )
 }
 
-export default MICUBed1;
+export default Bed1d;

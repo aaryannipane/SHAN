@@ -1,7 +1,8 @@
 
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
  const Dashboarsd =()=> {
   let navigate= useNavigate()
   let data={
@@ -9,18 +10,19 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
   }
   return (
    <>
-   <h1>Welcome to SHAN-APP</h1>
+  
    <div className="d-grid gap-2">
-      <Button variant="primary" size="lg"  onClick={()=>{
+      <Button variant="secondary" size="xxl"  onClick={()=>{
     navigate("/Admin")
    }}>
        Admin Login
       </Button>
-      <Button variant="secondary" size="lg"  onClick={()=>{
+      <Button variant="secondary" size="xxl"  onClick={()=>{
     navigate("/Nurse")
    }}>
         Nurse Login
       </Button>
+      
       
     </div>
    
