@@ -12,12 +12,11 @@ import Bed1d from "./Componants/pages/Bed1d";
 import SelectDepartment from "./Componants/pages/SelectDepartment";
 import MICUDepartment from "./Componants/pages/MICUDepartment";
 import MICUBed1 from "./Componants/pages/MICUBed1";
-
 import { useSelector } from "react-redux";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 
-import  {Container} from  './Componants/pages/Container.styled'
-import  Header from  './Componants/pages/Header'
+import { Container } from "./Componants/pages/Container.styled";
+import Header from "./Componants/pages/Header";
 import "./App.css";
 function App() {
   const { user, isAuth } = useSelector((state) => state.auth);
@@ -31,15 +30,14 @@ function App() {
   return loading ? (
     <h1>Loading</h1>
   ) : (
-  <> <Header/>
-  
-   
+    <>
+      {" "}
+      <Header />
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          
-    
+
           <Route path="/dashboard" element={<Dashboarsd />} />
           {/* <Route
             path="/dashboard"
@@ -52,17 +50,16 @@ function App() {
             }
           /> */}
           <Route path="/Calenderhis" element={<Calenderhis />} />
-        
+
           <Route path="/DatabaseNurse" element={<DatabaseNurse />} />
           <Route path="/SelectDepartment" element={<SelectDepartment />} />
           <Route path="/MICUDepartment" element={<MICUDepartment />} />
           <Route path="/MICUBed1" element={<MICUBed1 />} />
           <Route path="/Bed1d" element={<Bed1d />} />
-          
+
           <Route path="*" element={<h1>Error 404 pages not found!!</h1>} />
         </Routes>
       </BrowserRouter>
-    
     </>
   );
 }
