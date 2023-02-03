@@ -1,4 +1,6 @@
+import PatientModel from "../models/patientModel.js";
 import NurseService from "../services/nurseService.js";
+import PatientService from "../services/patientService.js";
 
 class NurseController {
   static loginNurse = async (req, res) => {
@@ -47,7 +49,52 @@ class NurseController {
     res.json({ message: "logout success" });
   };
 
-  // add details
+  // add details of patient
+  static addPatient = async (req, res) => {
+    const patient = req.body;
+    if (!patient) {
+      return res
+        .status(400)
+        .json({ success: false, message: "provide all patient fields" });
+    }
+
+    if (!patient.mrNo) {
+      return res
+        .status(400)
+        .json({ success: false, message: "mrNo is required" });
+    }
+
+    const mrNo = Number(patient.mrNo);
+    // check mrNo is number only
+    if (isNaN(mrNo)) {
+      return res
+        .status(400)
+        .json({ message: false, message: "mrNo should be a number" });
+    }
+
+    // check patient exist in db
+    let patientDb;
+    try {
+      const isPatientExist = await PatientService.checkPatientExist(mrNo);
+
+      if (isPatientExist) {
+        return res.status(409).json({
+          success: false,
+          message: "patient already exist with same MR number",
+        });
+      }
+      // creating new patient
+      patientDb = await PatientService.createPatient(mrNo, patient);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ success: false, message: "DB error" });
+    }
+
+    // success response
+    return res
+      .status(200)
+      .json({ success: true, message: "patient created success" });
+  };
 }
 
 export default NurseController;
