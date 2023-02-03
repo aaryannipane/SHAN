@@ -9,75 +9,78 @@ import AuthMiddleware from "./middlewares/authMiddleware.js";
 const router = express.Router();
 
 // SUPER USER ROUTES
-router.post("/api/create-superuser", SuperUserController.create);
-router.post("/api/login-superuser", SuperUserController.loginUser);
+router.post("/create-superuser", SuperUserController.create);
+router.post("/login-superuser", SuperUserController.loginUser);
 router.post(
-  "/api/logout-superuser",
+  "/logout-superuser",
   AuthMiddleware.UserAuth,
   SuperUserController.logoutSuper
 );
 router.post(
-  "/api/create-admin",
+  "/create-admin",
   AuthMiddleware.UserAuth,
   SuperUserController.createAdmin
 );
 router.post(
-  "/api/remove-admin",
+  "/remove-admin",
   AuthMiddleware.UserAuth,
   SuperUserController.removeAdmin
 );
 router.post(
-  "/api/get-admins",
+  "/get-admins",
   AuthMiddleware.UserAuth,
   SuperUserController.getAdmins
 );
 
 // ADMIN ROUTES
-router.post("/api/login-admin", AdminController.loginAdmin);
+router.post("/login-admin", AdminController.loginAdmin);
 router.post(
-  "/api/logout-admin",
+  "/logout-admin",
   AuthMiddleware.UserAuth,
   AdminController.logoutAdmin
 );
 router.post(
-  "/api/create-nurse",
+  "/create-nurse",
   AuthMiddleware.UserAuth,
   AdminController.createNurse
 );
 router.post(
-  "/api/remove-nurse",
+  "/remove-nurse",
   AuthMiddleware.UserAuth,
   AdminController.removeNurse
 );
-router.post(
-  "/api/get-nurses",
-  AuthMiddleware.UserAuth,
-  AdminController.getNurses
-);
+router.post("/get-nurses", AuthMiddleware.UserAuth, AdminController.getNurses);
 
 // NURSE ROUTES
-router.post("/api/login-nurse", NurseController.loginNurse);
+router.post("/login-nurse", NurseController.loginNurse);
 router.post(
-  "/api/logout-nurse",
+  "/logout-nurse",
   AuthMiddleware.UserAuth,
   NurseController.logoutNurse
 );
 
 // FETCH DEPARTMENTS
 router.get(
-  "/api/departments",
+  "/departments",
   AuthMiddleware.UserAuth,
   DepartmentController.getDepartments
 );
 
 // get beds in particular department
 router.post(
-  "/api/department-beds",
+  "/department-beds",
   AuthMiddleware.UserAuth,
   DepartmentController.getBeds
 );
 
+// add Patient details
+router.post(
+  "/patient/identification",
+  AuthMiddleware.UserAuth,
+  NurseController.addPatient
+);
+
 // refresh for all roles
-router.get("/api/refresh", AuthController.refresh);
+router.get("/refresh", AuthController.refresh);
 
 export default router;

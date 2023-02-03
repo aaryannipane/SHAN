@@ -27,7 +27,7 @@ connectDB();
 
 app.use(express.json());
 
-app.use(router);
+app.use("/api", router);
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello from server</h1>");
