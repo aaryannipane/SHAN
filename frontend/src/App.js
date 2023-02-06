@@ -1,69 +1,35 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./Componants/pages/Home";
+import Home from "./Componants/Home";
 
-import Navbar from "./Componants/pages/Navbar";
-import Dashboarsd from "./Componants/pages/Dashboarsd";
-import DatabaseNurse from "./Componants/pages/DatabaseNurse";
+//Validations
 
-import Calenderhis from "./Componants/pages/Calenderhis";
-import Bed1d from "./Componants/pages/Bed1d";
 
-import SelectDepartment from "./Componants/pages/SelectDepartment";
-import MICUDepartment from "./Componants/pages/MICUDepartment";
-import MICUBed1 from "./Componants/pages/MICUBed1";
-
+import Navbar from "./Componants/Navbar";
+import { Provider } from 'react-redux';
+import SelectDepartment from "./Componants/SelectDepartment";
+import MICUDepartment from "./Componants/MICUDepartment";
+import MICUBed1 from "./Componants/MICUBed1";
+import SelectHospital from "./Componants/SelectHospital";
 import { useSelector } from "react-redux";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
-
-import  {Container} from  './Componants/pages/Container.styled'
-import  Header from  './Componants/pages/Header'
 import "./App.css";
 function App() {
-  const { user, isAuth } = useSelector((state) => state.auth);
-  let isLogged = isAuth;
-  let data = {
-    st: "user not logged   in",
-  };
-
-  const { loading } = useLoadingWithRefresh();
-
-  return loading ? (
-    <h1>Loading</h1>
-  ) : (
-  <> <Header/>
-  
-   
+  return(
+  <div>
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          
-    
-          <Route path="/dashboard" element={<Dashboarsd />} />
-          {/* <Route
-            path="/dashboard"
-            element={
-              isLogged ? (
-                <Dashboarsd />
-              ) : (
-                <Navigate to="/loginpage" replace state={data} />
-              )
-            }
-          /> */}
-          <Route path="/Calenderhis" element={<Calenderhis />} />
-        
-          <Route path="/DatabaseNurse" element={<DatabaseNurse />} />
           <Route path="/SelectDepartment" element={<SelectDepartment />} />
           <Route path="/MICUDepartment" element={<MICUDepartment />} />
           <Route path="/MICUBed1" element={<MICUBed1 />} />
-          <Route path="/Bed1d" element={<Bed1d />} />
+          <Route path="/SelectHospital" element={<SelectHospital />} />
           
           <Route path="*" element={<h1>Error 404 pages not found!!</h1>} />
         </Routes>
       </BrowserRouter>
-    
-    </>
+      </div>
   );
 }
 
