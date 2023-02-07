@@ -5,7 +5,7 @@ const Navbar = () => {
         <>
         <ul>
            
-            <li><NavLink to="/"  style={({isActive})=>{return{backgroundColor: isActive ?  'skyblue': ''}}}>Home</NavLink></li>
+            <li><NavLink to="/dashboard"  style={({isActive})=>{return{backgroundColor: isActive ?  'skyblue': ''}}}>Dashboard</NavLink></li>
            
             
         </ul>
