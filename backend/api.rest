@@ -125,13 +125,13 @@ Content-Type: application/json
 
 ###
 
-# add patient details
+# add patient identification details
 POST http://localhost:5500/api/patient/identification HTTP/1.1
 Content-Type: application/json
 
 {
-    "mrNo": 1345556009,
-    "name":"aryan",
+    "mrNo": 2000000000,
+    "name":"Jhon",
     "age":25,
     "sex":"M",
     "ward":"BIO",
@@ -142,6 +142,28 @@ Content-Type: application/json
     "drName":"",
     "unit":"",
     "diagnosis":""
+}
+
+###
+
+# add patient situation details
+POST http://localhost:5500/api/patient/situation HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "aryan",
+    
+}
+
+###
+
+# remove patient and add to history
+DELETE http://localhost:5500/api/patient HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "63e157120633419f8ed30bd7",
+    "mrNo": 2000000000
 }
 
 ###
