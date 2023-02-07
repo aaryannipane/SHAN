@@ -41,8 +41,6 @@ class NurseController {
       user: {
         id: nurse.id,
         username: nurse.username,
-        name: nurse.name,
-        role: nurse.role,
       },
       auth: true,
     });
