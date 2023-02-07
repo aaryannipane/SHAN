@@ -73,6 +73,9 @@ router.post(
   DepartmentController.getBeds
 );
 
+// get patient in particular department
+// router.get("/:department/", AuthMiddleware.UserAuth, NurseController.getPatient)
+
 // add Patient identification details
 router.post(
   "/patient/identification",

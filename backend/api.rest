@@ -82,9 +82,9 @@ POST http://localhost:5500/api/create-nurse HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"aryan",
-    "username":"aryannipane",
-    "password":"aryan"
+    "name":"nurse",
+    "username":"nurse1",
+    "password":"nurse1"
 }
 
 ###
