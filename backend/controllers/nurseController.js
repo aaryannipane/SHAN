@@ -1,4 +1,5 @@
-import PatientModel from "../models/patientModel.js";
+import mongoose from "mongoose";
+import PatientModel, { PatientHistoryModel } from "../models/patientModel.js";
 import NurseService from "../services/nurseService.js";
 import PatientService from "../services/patientService.js";
 
@@ -6,7 +7,9 @@ class NurseController {
   static loginNurse = async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
     }
 
     let nurse;
@@ -14,11 +17,13 @@ class NurseController {
       nurse = await NurseService.loginNurse(username, password);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: "DB error" });
+      return res.status(500).json({ success: false, message: "DB error" });
     }
 
     if (!nurse) {
-      return res.status(401).json({ message: "Invalid username or Password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid username or Password" });
     }
 
     res.cookie("id", nurse.id, {
@@ -32,6 +37,7 @@ class NurseController {
     });
 
     res.json({
+      success: true,
       user: {
         id: nurse.id,
         username: nurse.username,
@@ -46,11 +52,12 @@ class NurseController {
     res.clearCookie("id");
     res.clearCookie("username");
     res.clearCookie("role");
-    res.json({ message: "logout success" });
+    res.json({ success: true, message: "logout success", auth: false });
   };
 
   // add details of patient
-  static addPatient = async (req, res) => {
+  // adding patient Identification details
+  static addPatientIdentification = async (req, res) => {
     const patient = req.body;
     if (!patient) {
       return res
@@ -58,10 +65,10 @@ class NurseController {
         .json({ success: false, message: "provide all patient fields" });
     }
 
-    if (!patient.mrNo) {
+    if (!patient.mrNo || !patient.name) {
       return res
         .status(400)
-        .json({ success: false, message: "mrNo is required" });
+        .json({ success: false, message: "name and mrNo is required" });
     }
 
     const mrNo = Number(patient.mrNo);
@@ -91,10 +98,96 @@ class NurseController {
     }
 
     // success response
+    return res.status(200).json({
+      success: true,
+      message: "patient created success",
+      patient: patientDb,
+    });
+  };
+
+  // TODO: add patient situation
+  static addPatientSituation = async (req, res) => {
+    const patient = req.body;
+    if (!patient) {
+      return res
+        .status(400)
+        .json({ success: false, message: "provide all patient fields" });
+    }
+
+    if (!patient.mrNo || !patient.id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "mrNo and id is required" });
+    }
+
+    const mrNo = Number(patient.mrNo);
+    // check mrNo is number only
+    if (isNaN(mrNo)) {
+      return res
+        .status(400)
+        .json({ message: false, message: "mrNo should be a number" });
+    }
+
+    // check patient exist in db
+    let patientDb;
+    try {
+      const isPatientExist = await PatientService.checkPatientExist(mrNo);
+
+      if (!isPatientExist) {
+        return res.status(404).json({
+          success: false,
+          message: "patient does'nt exist",
+        });
+      }
+      // TODO: update patient situation
+      // patientDb = await PatientModel.findByIdAndUpdate(id, {
+      //   situation: patient,
+      // });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ success: false, message: "DB error" });
+    }
+
+    // success response
     return res
       .status(200)
-      .json({ success: true, message: "patient created success" });
+      .json({ success: true, message: "patient situation added success" });
   };
+
+  static removePatient = async (req, res) => {
+    // check patient exist in db using mrno
+    const patientData = req.body;
+    try {
+      const isPatientExist = await PatientService.checkPatientExist(
+        patientData.mrNo
+      );
+      if (!isPatientExist) {
+        return res
+          .status(404)
+          .json({ success: false, message: "patient not found" });
+      }
+
+      const patient = await PatientModel.findById(patientData.id);
+      // push patient to history collectio
+      let patientHistory = new PatientHistoryModel(patient);
+      patientHistory._id = mongoose.Types.ObjectId();
+      patientHistory.isNew = true;
+      patientHistory.save();
+      // delete patient from patient collection
+      await PatientModel.findByIdAndDelete(patientData.id);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ success: false, message: "DB error" });
+    }
+
+    res.status(200).json({ success: true, message: "patient deleted success" });
+  };
+
+  // TESTING
+  // static addPatientSituation2 = async (req, res) => {
+  //   console.log(req.body);
+  //   res.json({ success: true });
+  // };
 }
 
 export default NurseController;

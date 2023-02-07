@@ -51,7 +51,7 @@ router.post(
 );
 router.post("/get-nurses", AuthMiddleware.UserAuth, AdminController.getNurses);
 
-// NURSE ROUTES
+// ---------------------------->NURSE ROUTES<--------------------------------------------
 router.post("/login-nurse", NurseController.loginNurse);
 router.post(
   "/logout-nurse",
@@ -73,11 +73,24 @@ router.post(
   DepartmentController.getBeds
 );
 
-// add Patient details
+// add Patient identification details
 router.post(
   "/patient/identification",
   AuthMiddleware.UserAuth,
-  NurseController.addPatient
+  NurseController.addPatientIdentification
+);
+// add Patient situation details
+router.post(
+  "/patient/situation",
+  AuthMiddleware.UserAuth,
+  NurseController.addPatientSituation
+);
+
+// remove patient and add to history
+router.delete(
+  "/patient",
+  AuthMiddleware.UserAuth,
+  NurseController.removePatient
 );
 
 // refresh for all roles
