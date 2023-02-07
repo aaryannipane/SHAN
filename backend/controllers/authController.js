@@ -60,8 +60,6 @@ class AuthController {
       user: {
         id: user._id,
         username: user.username,
-        name: user.name,
-        role: user.role,
       },
       auth: true,
     });
