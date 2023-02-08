@@ -31,8 +31,10 @@ class NurseService {
 
   static loginNurse = async (username, password) => {
     let nurse = await NurseModel.findOne({ username });
+
     if (nurse) {
-      const result = bcrypt.compare(password, nurse.password);
+      const result = await bcrypt.compare(password, nurse.password);
+      console.log(result);
       if (result) {
         return nurse;
       }

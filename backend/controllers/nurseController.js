@@ -53,6 +53,11 @@ class NurseController {
     res.json({ success: true, message: "logout success", auth: false });
   };
 
+  static getPatient = async (req, res) => {
+    console.log(req.params);
+    res.json({ message: "success" });
+  };
+
   // add details of patient
   // adding patient Identification details
   static addPatientIdentification = async (req, res) => {
