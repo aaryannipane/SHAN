@@ -111,8 +111,9 @@ POST http://localhost:5500/api/login-nurse HTTP/1.1
 Content-Type: application/json
 
 {
-    "username":"nurse1",
-    "password":"123"
+
+    "username":"aryannipane",
+    "password":"aryan"
 }
 
 ###

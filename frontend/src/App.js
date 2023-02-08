@@ -1,19 +1,27 @@
 import React from "react";
-import { createBrowserRouter, Route, Router,RouterProvider,Switch} from "react-router-dom";
+import { BrowserRouter,Routes,Route} from "react-router-dom";
 import { Home } from "./Componants/pages/Home";
-export const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home/>,
-    },
-    {
-      path: "/new",
-      element: <div>new</div>,
-    },
-  ]);
+import SelectHospital from "./Componants/SelectHospital";
+import Protected from "./Componants/Protected";
+import SelectDepartment from "./Componants/SelectDepartment";
+import MICUDepartment from "./Componants/MICUDepartment";
+import MICUBed1 from "./Componants/MICUBed1";
 
-  return (
-      <RouterProvider router={router} />
-  );
+
+//SelectDepartment  MICUDepartment  MICUBed1
+export const App = () => {
+  return(
+<>
+<BrowserRouter>
+<Routes>
+  <Route  path="/" element={<Protected Component={Home}/>}/>
+  <Route  path="/SelectHospital" element={<Protected Component={SelectHospital}/>}/>
+  <Route  path="/SelectDepartment" element={<Protected Component={SelectDepartment}/>}/>
+  <Route  path="/MICUDepartment" element={<Protected Component={MICUDepartment}/>}/>
+  <Route  path="/MICUBed1" element={<Protected Component={MICUBed1}/>}/>
+</Routes>
+</BrowserRouter>
+</>
+
+  )
 };
