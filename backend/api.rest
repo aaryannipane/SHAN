@@ -112,7 +112,7 @@ Content-Type: application/json
 
 {
     "username":"nurse1",
-    "password":"nurse1"
+    "password":"123"
 }
 
 ###

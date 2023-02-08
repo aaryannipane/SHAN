@@ -34,7 +34,6 @@ class NurseService {
 
     if (nurse) {
       const result = await bcrypt.compare(password, nurse.password);
-      console.log(result);
       if (result) {
         return nurse;
       }
