@@ -18,6 +18,9 @@ export const nurseLogin = (data) => api.post("/api/login-nurse", data);
 // get nurses
 export const getNurses = () => api.post("/api/get-nurses");
 
+export const addPatientIdentification = () => api.post("/api/patient/identification");
+
+
 // interceptor when token gets expired while using system
 api.interceptors.response.use(
   (config) => {

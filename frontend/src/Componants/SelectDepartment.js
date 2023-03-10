@@ -11,29 +11,15 @@ function SelectDepartment() {
       <Button variant="primary" size="lg" onClick={()=>{
     navigate("/MICUDepartment")
    }}>
-        MICU
+        ICU
       </Button>
       <Button variant="secondary" size="lg">
-        CVTS
+        ICU
       </Button>
       <Button variant="primary" size="lg">
-        HDU
+        ICU
       </Button>
-      <Button variant="secondary" size="lg">
-        SICU
-      </Button>
-      <Button variant="primary" size="lg">
-        Medical Ward
-      </Button>
-      <Button variant="secondary" size="lg">
-        Surgical Ward
-      </Button>
-      <Button variant="primary" size="lg">
-        Emergency Trauma Ward
-      </Button>
-      <Button variant="secondary" size="lg">
-        Ortho Ward
-      </Button>
+      
     </div>
     
     
