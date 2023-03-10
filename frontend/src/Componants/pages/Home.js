@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { nurseLogin } from "../../http";
 import {useNavigate} from "react-router-dom";
+// import {useDispatch} from 'react-redux';
+// import { setUser } from "../../store/UserSlice";
 
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { setUser } from "../../store/UserSlice";
+import { useDispatch } from "react-redux";
 
 export const Home = () => {
-  const navigate  = useNavigate()
+  const navigate  = useNavigate();
+ const dispatch=useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernamerr, setUsernameerr] = useState("");
   const [passworderr, setPassworderr] = useState("");
     
+  
+
   async function  loginHandler(e)
    {
     e.preventDefault();
@@ -22,12 +28,18 @@ export const Home = () => {
       return alert("type correct values")
     }
       
+    try {
       const result = await nurseLogin({
         username: username,
         password: password,
       });
       console.log(result);
       navigate("/SelectHospital")
+      dispatch(setUser(result.data.user));
+    } catch (error) {
+      console.log(error.response.status)
+    }
+     
        
    }
   
@@ -76,7 +88,24 @@ setUsername(item)
       
         <button
         type="submit"
+          
           onClick={loginHandler}
+          // onSubmit={
+          //   ()=>{
+          //   if(loginHandler==true)
+          //     {
+          //     const userset=(nurseLogin)=>
+          //     {//storing data
+          //       dispatch(setUser(nurseLogin));
+          //     }
+          //     navigate('/SelectHopital')
+          //   }
+          //   else{
+          //     console.warn("err");
+          //   }
+          //   }
+          //   }
+          
         >
           Login
         </button>

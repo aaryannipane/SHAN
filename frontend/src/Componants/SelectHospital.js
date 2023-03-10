@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+
 import { useNavigate } from 'react-router-dom';
 function SelectHospital() {
     let navigate= useNavigate()
@@ -6,17 +6,17 @@ function SelectHospital() {
     <>
     <h1>Select Hospital</h1>
     <div className="d-grid gap-2">
-      <Button variant="primary" size="lg"  onClick={()=>{
+      <button   onClick={()=>{
     navigate("/SelectDepartment")
    }}>
        MGM Hospital                 
-      </Button>
+      </button>
     </div>
-    <Button variant="secondary" size="lg"  onClick={()=>{
+    <button variant="secondary" size="lg"  onClick={()=>{
     navigate("/")
    }}>
        Back
-      </Button>
+      </button>
     </>
   );
 }
