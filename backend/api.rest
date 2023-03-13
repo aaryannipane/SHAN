@@ -127,7 +127,7 @@ Content-Type: application/json
 ###
 
 # get all patient in particular department
-GET http://localhost:5500/api/department/micu HTTP/1.1
+GET http://localhost:5500/api/department/icu HTTP/1.1
 Content-Type: application/json
 
 {
@@ -162,13 +162,15 @@ POST http://localhost:5500/api/patient/situation HTTP/1.1
 Content-Type: application/json
 
 {
+    "id":"640f1814d20f907c0493b8a1",
+    "mrNo":"2000000002",
     "oxygenSupport":{
         "os": "roomAir",
         "value": ""
     },
     "ventilatorSupport":{
         "vs":"prvc",
-        "fio2":12,
+        "fiO2":12,
         "peep":34,
         "rr":55,
         "tidalVolume": 98,

@@ -20,6 +20,14 @@ class PatientService {
     });
     return patient;
   };
+
+  static addSituation = async (id, patientSituation) => {
+    const patient = await PatientModel.findByIdAndUpdate(id, {
+      situation: patientSituation,
+    });
+
+    return patient;
+  };
 }
 
 export default PatientService;
