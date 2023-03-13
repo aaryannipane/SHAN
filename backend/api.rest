@@ -126,11 +126,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5500/api/icu HTTP/1.1
+# get all patient in particular department
+GET http://localhost:5500/api/department/micu HTTP/1.1
 Content-Type: application/json
 
 {
-    "message":"data"
+    
 }
 
 ###
@@ -140,11 +141,11 @@ POST http://localhost:5500/api/patient/identification HTTP/1.1
 Content-Type: application/json
 
 {
-    "mrNo": 2000000000,
-    "name":"Jhon",
+    "mrNo": 2000000002,
+    "name":"Ariana Grande",
     "age":25,
     "sex":"M",
-    "ward":"BIO",
+    "ward":"icu",
     "bedNo":1,
     "ipdNo":1234,
     "dateOfAdmission":"",
@@ -161,8 +162,18 @@ POST http://localhost:5500/api/patient/situation HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "aryan",
-    
+    "oxygenSupport":{
+        "os": "roomAir",
+        "value": ""
+    },
+    "ventilatorSupport":{
+        "vs":"prvc",
+        "fio2":12,
+        "peep":34,
+        "rr":55,
+        "tidalVolume": 98,
+        "other": "nothing to put ^_^"
+    }
 }
 
 ###
@@ -183,16 +194,6 @@ GET http://localhost:5500/api/departments HTTP/1.1
 Content-Type: application/json
 
 {}
-
-###
-
-# get beds in department
-POST http://localhost:5500/api/department-beds HTTP/1.1
-Content-Type: application/json
-
-{
-    "deptId":"6345bd58f4202a23f9fff6f1"
-}
 
 
 
