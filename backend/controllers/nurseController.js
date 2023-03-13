@@ -84,6 +84,30 @@ class NurseController {
     return res.json({ message: "success" });
   };
 
+  // single patient by id and mrNo
+  static getSinglePatient = async (req, res)=>{
+    const patientId = req.body.id
+    const patientMrNo = req.body.mrNo 
+
+    if(!patientId || !patientMrNo){
+      return res.status(400).json({success: false, message: "please send patient id and mrNo"})
+    }
+
+    try{
+      const patient = await PatientService.getPatient(patientId, patientMrNo);
+      if(!patient){
+        return res.status(404).json({success: false, message: "patient not found"})
+      }
+
+      return res.status(200).json({success: true, patient})
+
+    } catch (e){
+      return res.status(500).json({success: false, message: "server DB error"})
+    }
+
+
+  }
+
   // add details of patient
   // creating patient and adding patient Identification details
   // TODO: check mrNo is present in history collection too (mrNo should be unique while deleting patient)

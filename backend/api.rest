@@ -126,6 +126,17 @@ Content-Type: application/json
 
 ###
 
+# get single patient by id and mrNo
+GET http://localhost:5500/api/patient HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"640f4c9fcf99f4fa763b3e41",
+    "mrNo":"1000001"
+}
+
+###
+
 # get all patient in particular department
 GET http://localhost:5500/api/department/icu HTTP/1.1
 Content-Type: application/json
