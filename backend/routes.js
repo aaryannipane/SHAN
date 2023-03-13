@@ -65,6 +65,8 @@ router.get(
   NurseController.getAllPatient
 );
 
+// get single patient
+
 // add Patient identification details
 router.post(
   "/patient/identification",
@@ -76,6 +78,12 @@ router.post(
   "/patient/situation",
   AuthMiddleware.UserAuth,
   NurseController.addPatientSituation
+);
+
+router.post(
+  "/patient/update",
+  AuthMiddleware.UserAuth,
+  NurseController.updatePatient
 );
 
 // remove patient and add to history

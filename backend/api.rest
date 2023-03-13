@@ -136,12 +136,12 @@ Content-Type: application/json
 
 ###
 
-# add patient identification details
+# add patient identification details (creates new patient)
 POST http://localhost:5500/api/patient/identification HTTP/1.1
 Content-Type: application/json
 
 {
-    "mrNo": 2000000002,
+    "mrNo": 1000001,
     "name":"Ariana Grande",
     "age":25,
     "sex":"M",
@@ -178,6 +178,26 @@ Content-Type: application/json
     }
 }
 
+
+###
+
+
+# update patient ISBAR components
+POST http://localhost:5500/api/patient/update HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"640f4c9fcf99f4fa763b3e41",
+    "mrNo":"1000001",
+    "ISBAR":"situation",
+    "situation": {
+      "oxygenSupport": {
+        "os":"roomAir",
+        "value":null
+      }
+    }
+}
+
 ###
 
 # remove patient and add to history
@@ -185,8 +205,8 @@ DELETE http://localhost:5500/api/patient HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": "63e157120633419f8ed30bd7",
-    "mrNo": 2000000000
+    "id": "640f45073661cb6ea2ccbd86",
+    "mrNo": 2000000002
 }
 
 ###

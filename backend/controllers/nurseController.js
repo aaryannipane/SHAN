@@ -86,6 +86,7 @@ class NurseController {
 
   // add details of patient
   // creating patient and adding patient Identification details
+  // TODO: check mrNo is present in history collection too (mrNo should be unique while deleting patient)
   static addPatientIdentification = async (req, res) => {
     const patient = req.body;
     if (!patient) {
@@ -192,6 +193,79 @@ class NurseController {
     return res
       .status(200)
       .json({ success: true, message: "patient situation added success" });
+  };
+
+  // add patient background
+  // update patient details (mrNo is not changed/updated)
+  static updatePatient = async (req, res) => {
+    const ISBAR = [
+      "identification",
+      "situation",
+      "background",
+      "assessment",
+      "recommendation",
+    ];
+
+    // check right parameters we got
+    const patient = req.body;
+
+    if (!patient || !patient.id || !patient.mrNo || !patient.ISBAR) {
+      return res
+        .status(400)
+        .json({ success: false, message: "patient's mrNo and id is required" });
+    }
+
+    // check parameter is correct matching with patients parameter
+    if (!ISBAR.includes(patient.ISBAR)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "ISBAR component is not valid" });
+    }
+
+    if (patient.ISBAR === "identification" && !patient.identification.ward) {
+      console.log(
+        patient.ISBAR === "identification" && !patient.identification.ward
+      );
+      return res.status(400).json({
+        success: false,
+        message: "provide ward while updating identification",
+      });
+    }
+
+    try {
+      // check patient exist in DB or not
+      // check id and mrNo is same as mentioned
+      let patientOG = await PatientService.getPatient(patient.id, patient.mrNo);
+      // console.log(patientOG);
+      if (!patientOG) {
+        return res.status(400).json({
+          success: false,
+          message: "patient does'nt exist. Please check id and mrNo is correct",
+        });
+      }
+
+      // update patient data according to its parameter
+      const patientDB = await PatientModel.findByIdAndUpdate({_id:patient.id}, {
+        $set: patient,
+      }, {new:true});
+
+
+      if (!patientDB) {
+        return res.status(400).json({
+          success: false,
+          message: "provide correct id and mrNo of patient",
+        });
+      }
+
+      return res.status(200).json({ success: true, patientDB });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ success: false, message: "server DB error" });
+    }
+
+    return res.status(200).json({ success: true, message: "success" });
   };
 
   static removePatient = async (req, res) => {
