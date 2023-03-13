@@ -53,9 +53,35 @@ class NurseController {
     res.json({ success: true, message: "logout success", auth: false });
   };
 
-  static getPatient = async (req, res) => {
-    console.log(req.params);
-    res.json({ message: "success" });
+  static getAllPatient = async (req, res) => {
+    // currently only icu department is there if more than add to array
+    const departments = ["icu"];
+    const department = req.params.department;
+
+    // check param is correct department
+    // find that department patients and send all data
+    if (!departments.includes(department)) {
+      return res
+        .status(404)
+        .json({ success: false, message: "department not found" });
+    }
+
+    try {
+      const data = await PatientService.getAllPatientInDepartment(department);
+      // if (!data) {
+      //   return res
+      //     .status(404)
+      //     .json({
+      //       success: false,
+      //       message: "patient not found in that department",
+      //     });
+      // }
+      return res.json({ data });
+    } catch (e) {
+      return res.status("500").json({ message: "server DB error" });
+    }
+
+    return res.json({ message: "success" });
   };
 
   // add details of patient
@@ -136,16 +162,19 @@ class NurseController {
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
 
+      // if no patient
       if (!isPatientExist) {
         return res.status(404).json({
           success: false,
           message: "patient does'nt exist",
         });
       }
+
+      // if patient exist
       // TODO: update patient situation
-      // patientDb = await PatientModel.findByIdAndUpdate(id, {
-      //   situation: patient,
-      // });
+      patientDb = await PatientModel.findByIdAndUpdate(id, {
+        situation: patient,
+      });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ success: false, message: "DB error" });

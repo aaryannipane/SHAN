@@ -7,7 +7,7 @@ const PatientSchema = new mongoose.Schema(
       name: { type: String, required: true },
       age: { type: Number },
       sex: { type: String },
-      ward: { type: String },
+      ward: { type: String, required: true, enum:["icu", "micu"] },
       bedNo: { type: Number },
       ipdNo: { type: Number },
       dateOfAdmission: { type: Date },

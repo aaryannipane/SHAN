@@ -1,7 +1,6 @@
 import express from "express";
 import AdminController from "./controllers/adminController.js";
 import AuthController from "./controllers/authController.js";
-import DepartmentController from "./controllers/departmentController.js";
 import NurseController from "./controllers/NurseController.js";
 import SuperUserController from "./controllers/superUserController.js";
 import AuthMiddleware from "./middlewares/authMiddleware.js";
@@ -59,26 +58,12 @@ router.post(
   NurseController.logoutNurse
 );
 
-// FETCH DEPARTMENTS
+// get all patient in particular department
 router.get(
-  "/departments",
+  "/department/:department/",
   AuthMiddleware.UserAuth,
-  DepartmentController.getDepartments
+  NurseController.getAllPatient
 );
-
-// get beds in particular department
-router.post(
-  "/department-beds",
-  AuthMiddleware.UserAuth,
-  DepartmentController.getBeds
-);
-
-// get patient in particular department
-// router.get(
-//   "/:department/",
-//   AuthMiddleware.UserAuth,
-//   NurseController.getPatient
-// );
 
 // add Patient identification details
 router.post(
