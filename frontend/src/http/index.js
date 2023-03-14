@@ -15,6 +15,7 @@ const api = axios.create({
 export const adminLogin = (data) => api.post("/api/login-admin", data);
 export const nurseLogin = (data) => api.post("/api/login-nurse", data);
 
+
 // get nurses
 export const getNurses = () => api.post("/api/get-nurses");
 
