@@ -65,6 +65,13 @@ router.get(
   NurseController.getAllPatient
 );
 
+// get single patient by id and mrNo
+router.get(
+  "/patient",
+  AuthMiddleware.UserAuth,
+  NurseController.getSinglePatient
+);
+
 // add Patient identification details
 router.post(
   "/patient/identification",
@@ -72,10 +79,17 @@ router.post(
   NurseController.addPatientIdentification
 );
 // add Patient situation details
+// router.post(
+//   "/patient/situation",
+//   AuthMiddleware.UserAuth,
+//   NurseController.addPatientSituation
+// );
+
+// add / update patient ISBAR component (not updating mrNo)
 router.post(
-  "/patient/situation",
+  "/patient/update",
   AuthMiddleware.UserAuth,
-  NurseController.addPatientSituation
+  NurseController.updatePatient
 );
 
 // remove patient and add to history

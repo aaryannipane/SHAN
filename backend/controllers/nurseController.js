@@ -84,8 +84,33 @@ class NurseController {
     return res.json({ message: "success" });
   };
 
+  // single patient by id and mrNo
+  static getSinglePatient = async (req, res)=>{
+    const patientId = req.body.id
+    const patientMrNo = req.body.mrNo 
+
+    if(!patientId || !patientMrNo){
+      return res.status(400).json({success: false, message: "please send patient id and mrNo"})
+    }
+
+    try{
+      const patient = await PatientService.getPatient(patientId, patientMrNo);
+      if(!patient){
+        return res.status(404).json({success: false, message: "patient not found"})
+      }
+
+      return res.status(200).json({success: true, patient})
+
+    } catch (e){
+      return res.status(500).json({success: false, message: "server DB error"})
+    }
+
+
+  }
+
   // add details of patient
-  // adding patient Identification details
+  // creating patient and adding patient Identification details
+  // TODO: check mrNo is present in history collection too (mrNo should be unique while deleting patient)
   static addPatientIdentification = async (req, res) => {
     const patient = req.body;
     if (!patient) {
@@ -134,22 +159,22 @@ class NurseController {
     });
   };
 
-  // TODO: add patient situation
+  // add patient situation
   static addPatientSituation = async (req, res) => {
-    const patient = req.body;
-    if (!patient) {
+    const patientSituation = req.body;
+    if (!patientSituation) {
       return res
         .status(400)
         .json({ success: false, message: "provide all patient fields" });
     }
 
-    if (!patient.mrNo || !patient.id) {
+    if (!patientSituation.mrNo || !patientSituation.id) {
       return res
         .status(400)
         .json({ success: false, message: "mrNo and id is required" });
     }
 
-    const mrNo = Number(patient.mrNo);
+    const mrNo = Number(patientSituation.mrNo);
     // check mrNo is number only
     if (isNaN(mrNo)) {
       return res
@@ -162,7 +187,7 @@ class NurseController {
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
 
-      // if no patient
+      // if patient not exist
       if (!isPatientExist) {
         return res.status(404).json({
           success: false,
@@ -172,9 +197,17 @@ class NurseController {
 
       // if patient exist
       // TODO: update patient situation
-      patientDb = await PatientModel.findByIdAndUpdate(id, {
-        situation: patient,
-      });
+      patientDb = await PatientService.addSituation(
+        patientSituation.id,
+        patientSituation
+      );
+
+      if (!patientDb) {
+        return res.status(400).json({
+          success: false,
+          message: "send correct id and mrNo of Patient",
+        });
+      }
     } catch (err) {
       console.log(err);
       return res.status(500).json({ success: false, message: "DB error" });
@@ -184,6 +217,79 @@ class NurseController {
     return res
       .status(200)
       .json({ success: true, message: "patient situation added success" });
+  };
+
+  // add patient background
+  // update patient details (mrNo is not changed/updated)
+  static updatePatient = async (req, res) => {
+    const ISBAR = [
+      "identification",
+      "situation",
+      "background",
+      "assessment",
+      "recommendation",
+    ];
+
+    // check right parameters we got
+    const patient = req.body;
+
+    if (!patient || !patient.id || !patient.mrNo || !patient.ISBAR) {
+      return res
+        .status(400)
+        .json({ success: false, message: "patient's mrNo and id is required" });
+    }
+
+    // check parameter is correct matching with patients parameter
+    if (!ISBAR.includes(patient.ISBAR)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "ISBAR component is not valid" });
+    }
+
+    if (patient.ISBAR === "identification" && !patient.identification.ward) {
+      console.log(
+        patient.ISBAR === "identification" && !patient.identification.ward
+      );
+      return res.status(400).json({
+        success: false,
+        message: "provide ward while updating identification",
+      });
+    }
+
+    try {
+      // check patient exist in DB or not
+      // check id and mrNo is same as mentioned
+      let patientOG = await PatientService.getPatient(patient.id, patient.mrNo);
+      // console.log(patientOG);
+      if (!patientOG) {
+        return res.status(400).json({
+          success: false,
+          message: "patient does'nt exist. Please check id and mrNo is correct",
+        });
+      }
+
+      // update patient data according to its parameter
+      const patientDB = await PatientModel.findByIdAndUpdate({_id:patient.id}, {
+        $set: patient,
+      }, {new:true});
+
+
+      if (!patientDB) {
+        return res.status(400).json({
+          success: false,
+          message: "provide correct id and mrNo of patient",
+        });
+      }
+
+      return res.status(200).json({ success: true, patientDB });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ success: false, message: "server DB error" });
+    }
+
+    return res.status(200).json({ success: true, message: "success" });
   };
 
   static removePatient = async (req, res) => {
@@ -214,12 +320,6 @@ class NurseController {
 
     res.status(200).json({ success: true, message: "patient deleted success" });
   };
-
-  // TESTING
-  // static addPatientSituation2 = async (req, res) => {
-  //   console.log(req.body);
-  //   res.json({ success: true });
-  // };
 }
 
 export default NurseController;
