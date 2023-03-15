@@ -85,28 +85,31 @@ class NurseController {
   };
 
   // single patient by id and mrNo
-  static getSinglePatient = async (req, res)=>{
-    const patientId = req.body.id
-    const patientMrNo = req.body.mrNo 
+  static getSinglePatient = async (req, res) => {
+    const patientId = req.body.id;
+    const patientMrNo = req.body.mrNo;
 
-    if(!patientId || !patientMrNo){
-      return res.status(400).json({success: false, message: "please send patient id and mrNo"})
+    if (!patientId || !patientMrNo) {
+      return res
+        .status(400)
+        .json({ success: false, message: "please send patient id and mrNo" });
     }
 
-    try{
+    try {
       const patient = await PatientService.getPatient(patientId, patientMrNo);
-      if(!patient){
-        return res.status(404).json({success: false, message: "patient not found"})
+      if (!patient) {
+        return res
+          .status(404)
+          .json({ success: false, message: "patient not found" });
       }
 
-      return res.status(200).json({success: true, patient})
-
-    } catch (e){
-      return res.status(500).json({success: false, message: "server DB error"})
+      return res.status(200).json({ success: true, patient });
+    } catch (e) {
+      return res
+        .status(500)
+        .json({ success: false, message: "server DB error" });
     }
-
-
-  }
+  };
 
   // add details of patient
   // creating patient and adding patient Identification details
@@ -137,8 +140,9 @@ class NurseController {
     let patientDb;
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
+      const isPatientHistory = await PatientHistoryModel.findOne({ mrNo });
 
-      if (isPatientExist) {
+      if (isPatientExist || !isPatientHistory) {
         return res.status(409).json({
           success: false,
           message: "patient already exist with same MR number",
@@ -269,10 +273,13 @@ class NurseController {
       }
 
       // update patient data according to its parameter
-      const patientDB = await PatientModel.findByIdAndUpdate({_id:patient.id}, {
-        $set: patient,
-      }, {new:true});
-
+      const patientDB = await PatientModel.findByIdAndUpdate(
+        { _id: patient.id },
+        {
+          $set: patient,
+        },
+        { new: true }
+      );
 
       if (!patientDB) {
         return res.status(400).json({
