@@ -147,7 +147,7 @@ Content-Type: application/json
 
 ###
 
-# add patient identification details (creates new patient)
+# create/add patient identification details (creates new patient)
 POST http://localhost:5500/api/patient/identification HTTP/1.1
 Content-Type: application/json
 
