@@ -35,7 +35,7 @@ export const Home = () => {
         password: password,
       });
       console.log(result);
-      navigate("/SelectHospital")
+      navigate("/hospitals")
       dispatch(setUser(result.data.user));
     } catch (error) {
       console.log(error.response.status)

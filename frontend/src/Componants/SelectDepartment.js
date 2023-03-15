@@ -9,7 +9,7 @@ function SelectDepartment() {
     <h1>Select Department</h1>
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg" onClick={()=>{
-    navigate("/ICU")
+    navigate("/mgmcet/icu")
    }}>
         ICU
       </Button>
@@ -26,7 +26,7 @@ function SelectDepartment() {
     
     
     <Button variant="secondary" size="lg"  onClick={()=>{
-    navigate("/SelectHospital")
+    navigate("")
    }}>
        Back
       </Button>

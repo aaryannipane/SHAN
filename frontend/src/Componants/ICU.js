@@ -17,7 +17,7 @@ const ICU = () => {
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
    
     <Box sx={{ '& > :not(style)': { m: 1 } }}  onClick={()=>{
-    navigate("/Identification")
+    navigate("/mgmcet/icu/new")
    }}>
        <input type="text" {...register("name", { required: true })} />
       <Fab color="primary" aria-label="add" >

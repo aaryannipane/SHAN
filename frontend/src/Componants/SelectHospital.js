@@ -7,13 +7,13 @@ function SelectHospital() {
     <h1>Select Hospital</h1>
     <div className="d-grid gap-2">
       <button   onClick={()=>{
-    navigate("/SelectDepartment")
+    navigate("/mgmcet/departments")
    }}>
        MGM Hospital                 
       </button>
     </div>
     <button variant="secondary" size="lg"  onClick={()=>{
-    navigate("/")
+    navigate("")
    }}>
        Back
       </button>
