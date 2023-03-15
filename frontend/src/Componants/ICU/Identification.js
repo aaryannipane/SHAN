@@ -1,11 +1,26 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import "./Styles.css";
+import Tabled from './Tabled';
+import axios from "axios";
+import {useEffect} from "react";
+
+
 
 const Identification = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => console.log(data);
     // const name = watch("name"); 
+    async function  loginHandler(e)
+    {
+     e.preventDefault();
+    //  useEffect(()=>
+    //  {
+    //   // axios.get("api link").then(res) =>{}//calling axios
+      
+    //   console.log("called");//res.data-only data will show 
+    //   },[]);
+    }
 
   return (
     <>
@@ -83,7 +98,8 @@ const Identification = () => {
       <textarea type="text" {...register("History of present illness", { required: true })} />
       <label>Allergy</label>
       <textarea type="text" {...register("Allergy", { required: true })} />
-
+     
+       <Tabled/>
 
       <button type="submit"  >Submit</button>      
      

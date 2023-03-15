@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import { setUser } from "../../store/UserSlice";
 import { useDispatch } from "react-redux";
+import { fontSize } from "@mui/system";
 
 export const Home = () => {
   const navigate  = useNavigate();
@@ -34,7 +35,7 @@ export const Home = () => {
         password: password,
       });
       console.log(result);
-      navigate("/SelectHospital")
+      navigate("/hospitals")
       dispatch(setUser(result.data.user));
     } catch (error) {
       console.log(error.response.status)
@@ -66,6 +67,7 @@ setUsername(item)
     }
   return (
     <>
+    <h1    style={{fontSize: "100px",backgroundColor: "pink"}}>SHAN APP</h1>
     <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -73,9 +75,7 @@ setUsername(item)
           type="email"
           placeholder="username"
           onChange={userHandler} />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
+       
       </Form.Group> {usernamerr?<span>User Not Valid</span>:""}
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
@@ -83,7 +83,7 @@ setUsername(item)
           type="password"
           placeholder="password"
           onChange={passHandler}/>
-      </Form.Group>{passworderr?<span>Password Not Valid</span>:""}
+      </Form.Group>
      
       
         <button
