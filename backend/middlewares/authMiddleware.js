@@ -8,7 +8,13 @@ class AuthMiddleware {
       const { id, username, role } = req.cookies;
 
       if (!id || !username || !role) {
-        throw new Error();
+        // throw new Error();
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message: "please provide authorised username, id, and role",
+          });
       }
 
       let userData;
@@ -37,7 +43,7 @@ class AuthMiddleware {
         throw new Error();
       }
 
-      console.log(userData);
+      // console.log(userData);
       req.user = userData;
       next();
     } catch (err) {

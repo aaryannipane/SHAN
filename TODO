@@ -1,13 +1,4 @@
-database
-
-staff model 
-admin
-nurse
-incharge
-teamLeader
+----------BACKEND----------------
 
 
-
-nurse
-create patient
-update data of patient 
+----------FRONTEND----------------

@@ -5,6 +5,7 @@ import connectDB from "./database.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./routes.js";
+import morgan from "morgan";
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use(express.json());
 
 // connection to database
 connectDB();
+
+// http logger
+app.use(morgan("dev"));
 
 app.use("/api", router);
 
