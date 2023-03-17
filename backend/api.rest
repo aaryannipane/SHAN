@@ -137,7 +137,7 @@ Content-Type: application/json
 
 ###
 
-# get all patient in particular department
+# get all patient in particular department (icu is variable)
 GET http://localhost:5500/api/department/icu HTTP/1.1
 Content-Type: application/json
 
@@ -152,11 +152,12 @@ POST http://localhost:5500/api/patient/identification HTTP/1.1
 Content-Type: application/json
 
 {
-    "mrNo": 1000001,
-    "name":"Ariana Grande",
+    "mrNo": 1000055,
+    "name":"Ariana babu",
+    "department":"icu",
     "age":25,
     "sex":"M",
-    "ward":"icu",
+    "ward":"",
     "bedNo":1,
     "ipdNo":1234,
     "dateOfAdmission":"",

@@ -68,14 +68,7 @@ class NurseController {
 
     try {
       const data = await PatientService.getAllPatientInDepartment(department);
-      // if (!data) {
-      //   return res
-      //     .status(404)
-      //     .json({
-      //       success: false,
-      //       message: "patient not found in that department",
-      //     });
-      // }
+
       return res.json({ data });
     } catch (e) {
       return res.status("500").json({ message: "server DB error" });
@@ -113,8 +106,9 @@ class NurseController {
 
   // add details of patient
   // creating patient and adding patient Identification details
-  // TODO: check mrNo is present in history collection too (mrNo should be unique while deleting patient)
+  //
   static addPatientIdentification = async (req, res) => {
+    const department = ["icu"];
     const patient = req.body;
     if (!patient) {
       return res
@@ -122,10 +116,22 @@ class NurseController {
         .json({ success: false, message: "provide all patient fields" });
     }
 
-    if (!patient.mrNo || !patient.name) {
+    if (!patient.mrNo || !patient.name || !patient.department) {
       return res
         .status(400)
-        .json({ success: false, message: "name and mrNo is required" });
+        .json({
+          success: false,
+          message: "name, mrNo and department is required",
+        });
+    }
+
+    if (!department.includes(patient.department)) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: `department not found, please select from  ${department}`,
+        });
     }
 
     const mrNo = Number(patient.mrNo);
@@ -142,14 +148,15 @@ class NurseController {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
       const isPatientHistory = await PatientHistoryModel.findOne({ mrNo });
 
-      if (isPatientExist || !isPatientHistory) {
+      if (isPatientExist || isPatientHistory) {
+        console.log(isPatientExist, isPatientHistory);
         return res.status(409).json({
           success: false,
           message: "patient already exist with same MR number",
         });
       }
       // creating new patient
-      patientDb = await PatientService.createPatient(mrNo, patient);
+      patientDb = await PatientService.createPatient(mrNo, patient.department, patient);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ success: false, message: "DB error" });

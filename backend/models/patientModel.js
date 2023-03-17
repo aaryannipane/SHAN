@@ -3,11 +3,12 @@ import mongoose from "mongoose";
 const PatientSchema = new mongoose.Schema(
   {
     mrNo: { type: Number, unique: true, required: true },
+    department: { type: String, required: true },
     identification: {
       name: { type: String, required: true },
       age: { type: Number },
       sex: { type: String },
-      ward: { type: String, required: true, enum:["icu", "micu"] },
+      ward: { type: String },
       bedNo: { type: Number },
       ipdNo: { type: Number },
       dateOfAdmission: { type: Date },

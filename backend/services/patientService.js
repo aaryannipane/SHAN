@@ -8,7 +8,7 @@ class PatientService {
 
   static getAllPatientInDepartment = async (department) => {
     const patients = await PatientModel.find({
-      "identification.ward": department,
+      "department": department,
     });
     return patients;
   };
@@ -19,9 +19,10 @@ class PatientService {
     return patient;
   }
 
-  static createPatient = async (mrNo, rest) => {
+  static createPatient = async (mrNo, department, rest) => {
     const patient = await PatientModel.create({
       mrNo,
+      department,
       identification: rest,
     });
     return patient;
