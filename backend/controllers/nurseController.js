@@ -102,11 +102,13 @@ class NurseController {
         .status(500)
         .json({ success: false, message: "server DB error" });
     }
+
   };
 
   // add details of patient
   // creating patient and adding patient Identification details
   //
+
   static addPatientIdentification = async (req, res) => {
     const department = ["icu"];
     const patient = req.body;
@@ -146,10 +148,12 @@ class NurseController {
     let patientDb;
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
+
       const isPatientHistory = await PatientHistoryModel.findOne({ mrNo });
 
       if (isPatientExist || isPatientHistory) {
         console.log(isPatientExist, isPatientHistory);
+
         return res.status(409).json({
           success: false,
           message: "patient already exist with same MR number",
@@ -170,22 +174,28 @@ class NurseController {
     });
   };
 
+
   // add patient situation
   static addPatientSituation = async (req, res) => {
     const patientSituation = req.body;
     if (!patientSituation) {
+
       return res
         .status(400)
         .json({ success: false, message: "provide all patient fields" });
     }
 
+
     if (!patientSituation.mrNo || !patientSituation.id) {
+
       return res
         .status(400)
         .json({ success: false, message: "mrNo and id is required" });
     }
 
+
     const mrNo = Number(patientSituation.mrNo);
+
     // check mrNo is number only
     if (isNaN(mrNo)) {
       return res
@@ -198,13 +208,16 @@ class NurseController {
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
 
+
       // if patient not exist
+
       if (!isPatientExist) {
         return res.status(404).json({
           success: false,
           message: "patient does'nt exist",
         });
       }
+
 
       // if patient exist
       // TODO: update patient situation
@@ -219,6 +232,7 @@ class NurseController {
           message: "send correct id and mrNo of Patient",
         });
       }
+
     } catch (err) {
       console.log(err);
       return res.status(500).json({ success: false, message: "DB error" });
@@ -229,6 +243,7 @@ class NurseController {
       .status(200)
       .json({ success: true, message: "patient situation added success" });
   };
+
 
   // add patient background
   // update patient details (mrNo is not changed/updated)
@@ -306,6 +321,7 @@ class NurseController {
     return res.status(200).json({ success: true, message: "success" });
   };
 
+
   static removePatient = async (req, res) => {
     // check patient exist in db using mrno
     const patientData = req.body;
@@ -334,6 +350,7 @@ class NurseController {
 
     res.status(200).json({ success: true, message: "patient deleted success" });
   };
+
 }
 
 export default NurseController;

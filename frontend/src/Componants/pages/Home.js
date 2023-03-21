@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { nurseLogin } from "../../http";
 import {useNavigate} from "react-router-dom";
+import {Link,Outlet} from "react-router-dom";
+
+
 // import {useDispatch} from 'react-redux';
 // import { setUser } from "../../store/UserSlice";
 
@@ -12,6 +15,15 @@ import { fontSize } from "@mui/system";
 export const Home = () => {
   const navigate  = useNavigate();
  const dispatch=useDispatch();
+
+ useEffect(()=>{
+  let login =localStorage.getItem('login');
+  if(!login){
+      navigate('/')
+  }
+}, );
+
+
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -67,7 +79,8 @@ setUsername(item)
     }
   return (
     <>
-    <h1    style={{fontSize: "100px",backgroundColor: "pink"}}>SHAN APP</h1>
+
+    <h1 style={{fontSize: "100px",backgroundColor: "pink",fontFamily:"Bold"}}>SHAN APP</h1>
     <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>

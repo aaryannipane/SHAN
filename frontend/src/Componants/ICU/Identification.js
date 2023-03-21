@@ -4,13 +4,28 @@ import "./Styles.css";
 import Tabled from './Tabled';
 import axios from "axios";
 import {useEffect} from "react";
+import Hamburger from 'hamburger-react'
+import {useState} from'react'
+
 
 
 
 const Identification = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const [isOpen, setOpen] = useState(false)
+
+    const onSubmit = async (data) => {
+      try {
+        const res = await axios.post("http://localhost:5500/api/patient/identification",data)
+        if(res.status === 200){
+          console.log(res.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    };
     // const name = watch("name"); 
+
     async function  loginHandler(e)
     {
      e.preventDefault();
@@ -24,19 +39,21 @@ const Identification = () => {
 
   return (
     <>
-    <h1>IDENTIFICATION</h1>
+    <h1 style={{fontFamily:"Bold"}}><Hamburger toggled={isOpen} toggle={setOpen} />IDENTIFICATION</h1>
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
       {/* register your input into the hook by invoking the "register" function */}
       
       {/* include validation with required or other standard HTML validation rules */}
-      <label>Mr.No</label>
+      <label>*Mr.No</label>
       <input {...register("mrNo", { required: {value:true, message:"Required"}, maxLength:{value:10, message:"Max 10 characters allowed"} })} />
       {console.log(errors)}
       {errors.mrNo && <p>{errors.mrNo.message}</p>}
-      <label>Name</label>
+      <label>*Name</label>
       <input type="text" {...register("name", { required: true })} />
+      <label>*Department</label>
+      <input type="text" {...register("Department", { required: true })} />
       <label>Age</label>
-      <input {...register("age", { required: true })} />
+      <input {...register("age")} />
       <h4>Sex</h4>
       <label htmlFor="field-male">
                     <input
@@ -99,13 +116,19 @@ const Identification = () => {
       <label>Allergy</label>
       <textarea type="text" {...register("Allergy", { required: true })} />
      
-       <Tabled/>
+       {/* <Tabled/> */}
 
-      <button type="submit">Submit</button>      
+      <button type="submit"  >Submit</button>      
      
+
+     
+
+
       <h1>ASSESMENT</h1>
-      <h1>Vital signs</h1>
-   <h2 >SITUTION</h2>
+
+      <h2 style={{color:"white"}}>Vital signs</h2>
+
+   <h3 style={{color:"white"}} >SITUTION</h3>
       <input type="text" {...register("Temperature", { required: true })} />
       <label>Pulse</label>
       <input type="text" {...register("Pulse", { required: true })} /> 
