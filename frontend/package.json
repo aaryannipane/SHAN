@@ -17,6 +17,7 @@
     "axios": "^1.2.5",
     "bootstrap": "^5.2.3",
     "devextreme-react": "21.2.12",
+    "hamburger-react": "^2.5.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-calendar": "^4.0.0",

@@ -79,7 +79,8 @@ setUsername(item)
     }
   return (
     <>
-    <h1    style={{fontSize: "100px",backgroundColor: "pink"}}>SHAN APP</h1>
+
+    <h1 style={{fontSize: "100px",backgroundColor: "pink",fontFamily:"Bold"}}>SHAN APP</h1>
     <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>

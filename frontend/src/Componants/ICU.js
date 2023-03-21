@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import api from "../http/index"
 
+import Hamburger from 'hamburger-react'
 
 
 
@@ -14,6 +15,8 @@ const ICU = () => {
   const onSubmit = data => console.log(data); 
   let navigate= useNavigate()
   const [patients, setPatients] = useState([])
+  const [isOpen, setOpen] = useState(false)
+
 
   useEffect(()=>{
     async function getPatient(){
@@ -27,6 +30,7 @@ const ICU = () => {
 
   return (
     <>
+    <h1 style={{fontFamily:"Bold"}}><Hamburger toggled={isOpen} toggle={setOpen} />ICU</h1>
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
    
     {/* <Box sx={{ '& > :not(style)': { m: 1 } }} 
