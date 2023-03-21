@@ -2,7 +2,6 @@ import PatientModel from "../models/patientModel.js";
 
 class PatientService {
   static checkPatientExist = async (mrNo) => {
-
     const patient = await PatientModel.findOne({ mrNo: mrNo});
     return patient ? true : false;
   };
@@ -21,7 +20,6 @@ class PatientService {
   }
 
   static createPatient = async (mrNo, department, rest) => {
-
     const patient = await PatientModel.create({
       mrNo,
       department,
@@ -37,7 +35,6 @@ class PatientService {
 
     return patient;
   };
-
 }
 
 export default PatientService;
