@@ -101,7 +101,7 @@ const Identification = () => {
      
        <Tabled/>
 
-      <button type="submit"  >Submit</button>      
+      <button type="submit">Submit</button>      
      
       <h1>ASSESMENT</h1>
       <h1>Vital signs</h1>
