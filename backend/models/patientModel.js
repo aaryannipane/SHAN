@@ -7,7 +7,11 @@ const PatientSchema = new mongoose.Schema(
       name: { type: String, required: true },
       age: { type: Number },
       sex: { type: String },
+<<<<<<< HEAD
       ward: { type: String, required: true, enum:["icu", "micu"] },
+=======
+      ward: { type: String },
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
       bedNo: { type: Number },
       ipdNo: { type: Number },
       dateOfAdmission: { type: Date },

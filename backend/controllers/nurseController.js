@@ -53,6 +53,7 @@ class NurseController {
     res.json({ success: true, message: "logout success", auth: false });
   };
 
+<<<<<<< HEAD
   static getAllPatient = async (req, res) => {
     // currently only icu department is there if more than add to array
     const departments = ["icu"];
@@ -114,6 +115,15 @@ class NurseController {
   // add details of patient
   // creating patient and adding patient Identification details
   // TODO: check mrNo is present in history collection too (mrNo should be unique while deleting patient)
+=======
+  static getPatient = async (req, res) => {
+    console.log(req.params);
+    res.json({ message: "success" });
+  };
+
+  // add details of patient
+  // adding patient Identification details
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
   static addPatientIdentification = async (req, res) => {
     const patient = req.body;
     if (!patient) {
@@ -140,9 +150,14 @@ class NurseController {
     let patientDb;
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
+<<<<<<< HEAD
       const isPatientHistory = await PatientHistoryModel.findOne({ mrNo });
 
       if (isPatientExist || !isPatientHistory) {
+=======
+
+      if (isPatientExist) {
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
         return res.status(409).json({
           success: false,
           message: "patient already exist with same MR number",
@@ -163,22 +178,37 @@ class NurseController {
     });
   };
 
+<<<<<<< HEAD
   // add patient situation
   static addPatientSituation = async (req, res) => {
     const patientSituation = req.body;
     if (!patientSituation) {
+=======
+  // TODO: add patient situation
+  static addPatientSituation = async (req, res) => {
+    const patient = req.body;
+    if (!patient) {
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
       return res
         .status(400)
         .json({ success: false, message: "provide all patient fields" });
     }
 
+<<<<<<< HEAD
     if (!patientSituation.mrNo || !patientSituation.id) {
+=======
+    if (!patient.mrNo || !patient.id) {
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
       return res
         .status(400)
         .json({ success: false, message: "mrNo and id is required" });
     }
 
+<<<<<<< HEAD
     const mrNo = Number(patientSituation.mrNo);
+=======
+    const mrNo = Number(patient.mrNo);
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
     // check mrNo is number only
     if (isNaN(mrNo)) {
       return res
@@ -191,13 +221,17 @@ class NurseController {
     try {
       const isPatientExist = await PatientService.checkPatientExist(mrNo);
 
+<<<<<<< HEAD
       // if patient not exist
+=======
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
       if (!isPatientExist) {
         return res.status(404).json({
           success: false,
           message: "patient does'nt exist",
         });
       }
+<<<<<<< HEAD
 
       // if patient exist
       // TODO: update patient situation
@@ -212,6 +246,12 @@ class NurseController {
           message: "send correct id and mrNo of Patient",
         });
       }
+=======
+      // TODO: update patient situation
+      // patientDb = await PatientModel.findByIdAndUpdate(id, {
+      //   situation: patient,
+      // });
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
     } catch (err) {
       console.log(err);
       return res.status(500).json({ success: false, message: "DB error" });
@@ -223,6 +263,7 @@ class NurseController {
       .json({ success: true, message: "patient situation added success" });
   };
 
+<<<<<<< HEAD
   // add patient background
   // update patient details (mrNo is not changed/updated)
   static updatePatient = async (req, res) => {
@@ -299,6 +340,8 @@ class NurseController {
     return res.status(200).json({ success: true, message: "success" });
   };
 
+=======
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
   static removePatient = async (req, res) => {
     // check patient exist in db using mrno
     const patientData = req.body;
@@ -327,6 +370,15 @@ class NurseController {
 
     res.status(200).json({ success: true, message: "patient deleted success" });
   };
+<<<<<<< HEAD
+=======
+
+  // TESTING
+  // static addPatientSituation2 = async (req, res) => {
+  //   console.log(req.body);
+  //   res.json({ success: true });
+  // };
+>>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
 }
 
 export default NurseController;
