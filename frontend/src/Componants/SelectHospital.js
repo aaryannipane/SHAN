@@ -1,10 +1,14 @@
-
-import { useNavigate } from 'react-router-dom';
+import Hamburger from 'hamburger-react'
+import {useState} from'react'
+import { useNavigate} from 'react-router-dom';
 function SelectHospital() {
     let navigate= useNavigate()
+    const [isOpen, setOpen] = useState(false)
+
   return (
     <>
-    <h1>Select Hospital</h1>
+    <h1 style={{fontFamily:"Bold"}}> <Hamburger toggled={isOpen} toggle={setOpen} />Select Hospital</h1>
+   
     <div className="d-grid gap-2">
       <button   onClick={()=>{
     navigate("/mgmcet/departments")
