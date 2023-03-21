@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const PatientSchema = new mongoose.Schema(
   {
     mrNo: { type: Number, unique: true, required: true },
+    department: { type: String, required: true },
     identification: {
       name: { type: String, required: true },
       age: { type: Number },

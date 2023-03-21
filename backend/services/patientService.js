@@ -2,14 +2,14 @@ import PatientModel from "../models/patientModel.js";
 
 class PatientService {
   static checkPatientExist = async (mrNo) => {
-<<<<<<< HEAD
+
     const patient = await PatientModel.findOne({ mrNo: mrNo});
     return patient ? true : false;
   };
 
   static getAllPatientInDepartment = async (department) => {
     const patients = await PatientModel.find({
-      "identification.ward": department,
+      "department": department,
     });
     return patients;
   };
@@ -20,20 +20,15 @@ class PatientService {
     return patient;
   }
 
-=======
-    const patient = await PatientModel.findOne({ mrNo: mrNo });
-    return patient ? true : false;
-  };
+  static createPatient = async (mrNo, department, rest) => {
 
->>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
-  static createPatient = async (mrNo, rest) => {
     const patient = await PatientModel.create({
       mrNo,
+      department,
       identification: rest,
     });
     return patient;
   };
-<<<<<<< HEAD
 
   static addSituation = async (id, patientSituation) => {
     const patient = await PatientModel.findByIdAndUpdate(id, {
@@ -42,8 +37,7 @@ class PatientService {
 
     return patient;
   };
-=======
->>>>>>> f50bf3c7e131b575f87afd979fe8269b644c99b6
+
 }
 
 export default PatientService;
