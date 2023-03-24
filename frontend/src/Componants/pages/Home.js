@@ -16,12 +16,19 @@ export const Home = () => {
   const navigate  = useNavigate();
  const dispatch=useDispatch();
 
- useEffect(()=>{
-  let login =localStorage.getItem('login');
-  if(!login){
-      navigate('/')
+ 
+  const login=()=>
+  {
+      let login =localStorage.setItem('login',true);
   }
-}, );
+
+
+//   useEffect(()=>{
+//     let login =localStorage.getItem('login');
+//     if(!login){
+//         navigate('/')
+//     }
+// },[]);
 
 
 

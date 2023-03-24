@@ -30,7 +30,9 @@ const ICU = () => {
 
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}><Hamburger toggled={isOpen} toggle={setOpen} />ICU</h1>
+    <h1 style={{fontFamily:"Bold"}}><Hamburger onClick={()=>{
+    navigate("")
+   }} toggled={isOpen} toggle={setOpen} />ICU</h1>
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
    
     {/* <Box sx={{ '& > :not(style)': { m: 1 } }} 

@@ -5,15 +5,27 @@ import SelectHospital from "./Componants/SelectHospital";
 import Protected from "./Componants/Protected";
 import SelectDepartment from "./Componants/SelectDepartment";
 import ICU from "./Componants/ICU";
+import Hamburger from 'hamburger-react'
+import {useState} from 'react'
 
 //import  Provider from "react-redux";
 import Identification from "./Componants/ICU/Identification";
+import Navbar from "./Componants/Navbar";
+import Nurse from "./Componants/pages/Nurse";
 
 //  MICUDepartment  MICUBed1
 export const App = () => {
+  const [isOpen, setOpen] = useState(false)
+ 
   return(
 <>
+
+
 <BrowserRouter>
+<div style={{position:"fixed",right:"20px"}}>
+<Hamburger toggled={isOpen} toggle={setOpen}/>
+</div>
+{isOpen && <Nurse onClose={()=>setOpen(false)}/>}
 <Routes>
   
   <Route  path="/" element={<Protected Component={Home}/>}/>
