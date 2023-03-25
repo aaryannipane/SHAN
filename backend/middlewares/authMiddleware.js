@@ -7,6 +7,7 @@ class AuthMiddleware {
     try {
       const { id, username, role } = req.cookies;
 
+      console.log(id, username, role);
       if (!id || !username || !role) {
         // throw new Error();
         return res

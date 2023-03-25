@@ -7,11 +7,11 @@ import Hamburger from 'hamburger-react'
 
 function SelectDepartment() {
     let navigate= useNavigate()
-    const [isOpen, setOpen] = useState(false)
+   
 
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}><Hamburger toggled={isOpen} toggle={setOpen} />Select Department</h1>
+    <h1 style={{fontFamily:"Bold"}}>Select Department</h1>
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg" onClick={()=>{
     navigate("/mgmcet/icu")

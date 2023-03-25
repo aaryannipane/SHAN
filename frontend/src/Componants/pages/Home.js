@@ -16,12 +16,19 @@ export const Home = () => {
   const navigate  = useNavigate();
  const dispatch=useDispatch();
 
- useEffect(()=>{
-  let login =localStorage.getItem('login');
-  if(!login){
-      navigate('/')
+ 
+  const login=()=>
+  {
+      let login =localStorage.setItem('login',true);
   }
-}, );
+
+
+//   useEffect(()=>{
+//     let login =localStorage.getItem('login');
+//     if(!login){
+//         navigate('/')
+//     }
+// },[]);
 
 
 
@@ -83,9 +90,9 @@ setUsername(item)
     <h1 style={{fontSize: "100px",backgroundColor: "pink",fontFamily:"Bold"}}>SHAN APP</h1>
     <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>UserName</Form.Label>
         <Form.Control required
-          type="email"
+          type="text"
           placeholder="username"
           onChange={userHandler} />
        
