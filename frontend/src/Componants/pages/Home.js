@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {Link,Outlet} from "react-router-dom";
 
 
+
 // import {useDispatch} from 'react-redux';
 // import { setUser } from "../../store/UserSlice";
 
@@ -86,7 +87,6 @@ setUsername(item)
     }
   return (
     <>
-
     <h1 style={{fontSize: "100px",backgroundColor: "pink",fontFamily:"Bold"}}>SHAN APP</h1>
     <Form >
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -95,6 +95,8 @@ setUsername(item)
           type="text"
           placeholder="username"
           onChange={userHandler} />
+
+          
        
       </Form.Group> {usernamerr?<span>User Not Valid</span>:""}
       <Form.Group className="mb-3" controlId="formBasicPassword">

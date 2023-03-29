@@ -10,7 +10,6 @@ import {useState} from 'react'
 
 //import  Provider from "react-redux";
 import Identification from "./Componants/ICU/Identification";
-import Navbar from "./Componants/Navbar";
 import Nurse from "./Componants/pages/Nurse";
 
 //  MICUDepartment  MICUBed1
@@ -25,16 +24,14 @@ export const App = () => {
 <div style={{position:"fixed",right:"20px"}}>
 <Hamburger toggled={isOpen} toggle={setOpen}/>
 </div>
-{isOpen && <Nurse onClose={()=>setOpen(false)}/>}
+{isOpen && <Nurse/>}
 <Routes>
   
-  <Route  path="/" element={<Protected Component={Home}/>}/>
+  <Route  path="/" element={<Home />}/>
   <Route  path="/mgmcet/icu/new" element={<Protected Component={Identification}/>}/>
   <Route  path="/hospitals" element={<Protected Component={SelectHospital}/>}/>
   <Route  path="/mgmcet/departments" element={<Protected Component={SelectDepartment}/>}/>
-  <Route  path="/mgmcet/icu" element={<Protected Component={ICU}/>}/>
-
-  
+  <Route  path="/mgmcet/icu" element={<Protected Component={ICU}/>}/>  
 </Routes>
 </BrowserRouter>
 </>
