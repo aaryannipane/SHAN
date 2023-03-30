@@ -30,9 +30,7 @@ const ICU = () => {
 
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}><Hamburger onClick={()=>{
-    navigate("")
-   }} toggled={isOpen} toggle={setOpen} />ICU</h1>
+    <h1 style={{fontFamily:"Bold"}}>ICU</h1>
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
    
     {/* <Box sx={{ '& > :not(style)': { m: 1 } }} 
@@ -50,7 +48,7 @@ const ICU = () => {
    }}>+</button>
 
       {patients.map((patient)=>{
-        return <button style={{fontSize: "30px",backgroundColor: "pink"}}>{patient.mrNo} {patient.identification.name}</button>
+        return <button style={{fontSize: "30px",backgroundColor:"pink"}}>{patient.mrNo} {patient.identification.name}</button>
       })}
    </form>
     
