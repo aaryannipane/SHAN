@@ -1,10 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import "./Styles.css";
-import Tabled from './Tabled';
-import axios from "axios";
-import {useEffect} from "react";
-import Hamburger from 'hamburger-react'
+
 import {useState} from'react'
 import api from '../../http/index'
 

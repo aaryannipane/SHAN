@@ -9,7 +9,7 @@ const Nurse = ({onClose}) => {
    })
 
    const logout = async ()=>{
-    
+  
     const result = await nurseLogout();
     console.log(result);
     console.log("logout");
@@ -18,7 +18,7 @@ const Nurse = ({onClose}) => {
   return (
   
     <div style={{position:"fixed",top:"0",background:"grey",height:"100vh",width:"100%"}}>
-        <Navbar />
+        {/* <Navbar /> */}
       <div style={{display:"flex",justifyContent:"space-between"}}>
     <h1 style={{fontFamily:"Bold"}}>Nurse</h1>
     <button onClick={logout}>Log Out</button>
