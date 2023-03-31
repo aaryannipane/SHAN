@@ -27,7 +27,7 @@ export const App = () => {
 {isOpen && <Nurse/>}
 <Routes>
   
-  <Route  path="/" element={<Home />}/>
+  <Route path="/" element={<Home />}   />
   <Route  path="/mgmcet/icu/new" element={<Protected Component={Identification}/>}/>
   <Route  path="/hospitals" element={<Protected Component={SelectHospital}/>}/>
   <Route  path="/mgmcet/departments" element={<Protected Component={SelectDepartment}/>}/>

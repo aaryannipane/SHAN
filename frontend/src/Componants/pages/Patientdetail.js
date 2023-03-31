@@ -8,23 +8,22 @@ const Patientdetail = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [isOpen, setOpen] = useState(false)
 
-    // function getTodos(){
-    //   axios({
-    //   method:'p',
-    //   url:'http://localhost:5500/api/patient HTTP/1.1'
-    // })
-    // .then(res=>console.log(res.data))
-    // .catch(err=>console.log(err));
-    // }
-    useEffect(()=>{
-        async function posttPatient(){
-          const data = await api.post("/api/department/icu")
-          console.log(data.data.data);
-          posttPatient(data.data.data);
-        }
-    
-        posttPatient()
-      },[])
+    function getTodos(){
+      axios({
+      method:'post',
+      url:'http://localhost:5500/api/patient HTTP/1.1'
+    })
+    .then(res=>console.log(res.data.mrNo))
+    .catch(err=>console.log(err));
+    }
+    // useEffect(()=>{
+    //     async function posttPatient(){
+    //       const data = await api.post("/api/department/icu")
+    //       console.log(data.data.data);
+    //       posttPatient(data.data.data);
+    //     }
+    //     posttPatient()
+    //   },[])
     
 
 

@@ -108,26 +108,7 @@ setUsername(item)
      
       
         <button
-        type="submit"
-          
-          onClick={loginHandler}
-          // onSubmit={
-          //   ()=>{
-          //   if(loginHandler==true)
-          //     {
-          //     const userset=(nurseLogin)=>
-          //     {//storing data
-          //       dispatch(setUser(nurseLogin));
-          //     }
-          //     navigate('/SelectHopital')
-          //   }
-          //   else{
-          //     console.warn("err");
-          //   }
-          //   }
-          //   }
-          
-        >
+        type="submit" onClick={loginHandler}>
           Login
         </button>
       </Form>
