@@ -1,6 +1,0 @@
--- login
--- set cookies response in redux
-
-
--- refresh
--- isAuth = false , 
