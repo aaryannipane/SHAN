@@ -1,5 +1,4 @@
-import Hamburger from 'hamburger-react'
-import {useState} from'react'
+
 import { useNavigate} from 'react-router-dom';
 function SelectHospital() {
     let navigate= useNavigate()
@@ -16,7 +15,7 @@ function SelectHospital() {
       </button>
     </div>
     <button variant="secondary" size="lg"  onClick={()=>{
-    navigate("")
+    navigate("/")
    }}>
        Back
       </button>

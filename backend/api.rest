@@ -203,7 +203,8 @@ Content-Type: application/json
     "mrNo":"1000001",
     "ISBAR":"situation",
     "situation": {
-      "oxygenSupport": {
+      "oxygenSupport": 
+      {
         "os":"roomAir",
         "value":null
       }

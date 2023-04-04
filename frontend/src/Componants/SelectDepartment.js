@@ -1,8 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import {useState} from'react'
 
-import Hamburger from 'hamburger-react'
 
 
 function SelectDepartment() {
@@ -31,7 +29,7 @@ function SelectDepartment() {
     
     
     <Button variant="secondary" size="lg"  onClick={()=>{
-    navigate("")
+    navigate("/hospitals")
    }}>
        Back
       </Button>
