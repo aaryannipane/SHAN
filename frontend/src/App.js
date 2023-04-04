@@ -71,6 +71,7 @@ export const App = () => {
           <Route path="/mgmcet/icu" element={<Protected Component={ICU} />} />
 
           <Route path="/patientdetail/:id/:mrNo" element={<Protected Component={Patientdetail} />} />
+          <Route path="/offline" element={<h1>we are offline</h1>} />
         </Routes>
       </BrowserRouter>
     </>
