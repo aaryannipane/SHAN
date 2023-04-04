@@ -9,7 +9,6 @@ import { Link, Outlet } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { setUser } from "../../store/UserSlice";
 import { useDispatch } from "react-redux";
-import { fontSize } from "@mui/system";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -42,6 +41,7 @@ export const Home = () => {
       dispatch(setUser(result.data.user));
     } catch (error) {
       console.log(error.response.status);
+      alert("Username/Password is incorrect.")
     }
   }
 

@@ -4,6 +4,7 @@ import { Home } from "./Componants/pages/Home";
 import SelectHospital from "./Componants/SelectHospital";
 import Protected from "./Componants/Protected";
 import SelectDepartment from "./Componants/SelectDepartment";
+import Patientdetail from "./Componants/pages/Patientdetail";
 import ICU from "./Componants/ICU";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
@@ -49,7 +50,7 @@ export const App = () => {
     <>
       <BrowserRouter>
         <div style={{ position: "fixed", right: "20px" }}>
-          <Hamburger toggled={isOpen} toggle={setOpen} />
+          <Hamburger toggled={isOpen} toggle={setOpen}  />
         </div>
         {isOpen && <Nurse />}
         <Routes>
@@ -66,7 +67,10 @@ export const App = () => {
             path="/mgmcet/departments"
             element={<Protected Component={SelectDepartment} />}
           />
+
           <Route path="/mgmcet/icu" element={<Protected Component={ICU} />} />
+
+          <Route path="/patientdetail/:id" element={<Protected Component={Patientdetail} />} />
         </Routes>
       </BrowserRouter>
     </>

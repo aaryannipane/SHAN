@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import api from "../http/index"
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -37,16 +38,25 @@ const ICU = () => {
         <AddIcon />
       </Fab>
       </Box> */}
+       
       <input type="text" {...register("name", { required: true })} />
-      <button  style={{width:"50px",fontSize: "30px",backgroundColor: "pink"}} onClick={()=>{
+      <button  style={{width:"80px",fontSize: "30px",backgroundColor: "pink",borderRadius: "50%"}} onClick={()=>{
     navigate("/mgmcet/icu/new")
-   }}>+</button>
+   }}>➕</button>
 
       {patients.map((patient)=>{
-        return <button style={{fontSize: "30px",backgroundColor:"pink"}}>{patient.mrNo} {patient.identification.name}</button>
+        return <button style={{fontSize: "30px",backgroundColor:"pink"}} onClick={()=>{
+          navigate("/patientdetail")
+         }}>{patient.mrNo} {patient.identification.name}</button>
       })}
+
+
    </form>
-    
+   <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/mgmcet/departments")
+   }}>
+       Back
+      </Button>
     </>
   )
 }

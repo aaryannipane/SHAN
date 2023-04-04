@@ -15,7 +15,7 @@ function SelectHospital() {
       </button>
     </div>
     <button variant="secondary" size="lg"  onClick={()=>{
-    navigate("")
+    navigate("/")
    }}>
        Back
       </button>

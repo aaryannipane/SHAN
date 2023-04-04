@@ -29,7 +29,7 @@ function SelectDepartment() {
     
     
     <Button variant="secondary" size="lg"  onClick={()=>{
-    navigate("")
+    navigate("/hospitals")
    }}>
        Back
       </Button>

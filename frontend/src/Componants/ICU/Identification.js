@@ -3,8 +3,12 @@ import { useForm } from "react-hook-form";
 import "./Styles.css";
 import { useState } from "react";
 import api from "../../http/index";
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+
 
 const Identification = () => {
+  let navigate= useNavigate()
   const {
     register,
     handleSubmit,
@@ -32,17 +36,29 @@ const Identification = () => {
   };
 
   const onSubmitISBAR = async (ISBAR, data) => {
-    // let sendData = {id, mrNo, ISBAR, }
+        console.log(data)
+    let components = ["identification",
+    "situation",
+    "background",
+    "assessment",
+    "recommendation"]
+
+
+    // let sendData = {id, mrNo, ISBAR}
+    let sendData = {ISBAR}
+    sendData[ISBAR] = data;
+    console.log(sendData);
+
     let res;
-    try {
-      res = await api.post("http://localhost:5500/api/patient/update", data);
-      if (res.status === 200) {
-        console.log(res.data);
-      }
-    } catch (error) {
-      // console.log(error.response.data.message);
-      alert(error.response.data.message);
-    }
+    // try {
+    //   res = await api.post("api/patient/update", sendData);
+    //   if (res.status === 200) {
+    //     console.log(res.data);
+    //   }
+    // } catch (error) {
+    //   // console.log(error.response.data.message);
+    //   alert(error.response.data.message);
+    // }
   };
 
   return (
@@ -66,7 +82,7 @@ const Identification = () => {
         <input type="text" {...register("department", { required: true })} />
         <label>Age</label>
         <input {...register("age")} />
-        <h4>Sex</h4>
+        <h4>Gender</h4>
         <label htmlFor="field-male">
           <input
             {...register("gender")}
@@ -144,14 +160,19 @@ const Identification = () => {
           Submit
         </button>
 
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
         {/* //1 */}
 
         <h1>SITUTION</h1>
 
         <label>Oxygen Support</label>
-        <select {...register("Oxygen Support")}>
-          <option value="None">None</option>
-          <option value="Room air">Room air</option>
+        <select {...register("Oxygen Support",{ required: true })}>
+
+          <option value="Room air" {...register("value")}>Room air</option>
           <option value="Nasal cannuala">Nasal cannuala</option>
           <option value="Oxygen mask">Oxygen mask</option>
           <option value="Venturi mask">Venturi mask</option>
@@ -164,7 +185,7 @@ const Identification = () => {
         <input type="text" {...register("value", { required: false })} />
 
         <label>Ventilator Support</label>
-        <select {...register("ventilator Support")}>
+        <select {...register("ventilator Support",{ required: true })}>
           <option value="None">None</option>
           <option value="PRVC">PRVC</option>
           <option value="CPAP">CPAP</option>
@@ -174,13 +195,13 @@ const Identification = () => {
           <option value="other">other</option>
         </select>
         <label>FIO2</label>
-        <input type="text" {...register("FIO2", { required: false })} />
+        <input type="text" {...register("FIO2", { required: true })} />
         <label>PEEP</label>
-        <input type="text" {...register("PEEP", { required: false })} />
+        <input type="text" {...register("PEEP", { required: true })} />
         <label>RR</label>
-        <input type="text" {...register("RR", { required: false })} />
+        <input type="text" {...register("RR", { required: true })} />
         <label>Tidal volume</label>
-        <input type="text" {...register("Tidal volume", { required: false })} />
+        <input type="text" {...register("Tidal volume", { required: true })} />
 
         <label>Continuos Infusion</label>
         <label>Inotrope</label>
@@ -227,7 +248,7 @@ const Identification = () => {
           {...register("Sodium bicarbonate", { required: false })}
         />
         <label>Other</label>
-        <input type="text" {...register("Other", { required: false })} />
+        <input type="text" {...register("Other", { required: true })} />
 
         <label>Nutritional Status</label>
         <label>Oral</label>
@@ -245,16 +266,23 @@ const Identification = () => {
           {...register("Fluid restriction", { required: false })}
         />
 
-        <button type="submit" onClick={handleSubmit(onSubmitISBAR)}>
+        <button type="submit" onClick={handleSubmit(onSubmitISBAR("situation"))}>
           Submit
         </button>
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
 
         {/* 1.5 */}
 
         <h1>ASSESMENT</h1>
 
         <h2 style={{ color: "white" }}>Vital signs</h2>
-
+        <br></br>
+        <br></br>
         <h3 style={{ color: "white" }}>SITUTION</h3>
         <input type="text" {...register("Temperature", { required: false })} />
         <label>Pulse</label>
@@ -354,6 +382,12 @@ const Identification = () => {
           Submit
         </button>
 
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
         {/* //2 */}
 
         <h1>BACKGROUND</h1>
@@ -400,6 +434,12 @@ const Identification = () => {
           Submit
         </button>
 
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
         {/* 3 */}
 
         <h1>RECOMMENDATION</h1>
@@ -432,6 +472,11 @@ const Identification = () => {
           Submit
         </button>
       </form>
+      <Button variant="secondary" size="lg"  onClick={()=>{
+    navigate("/mgmcet/icu")
+   }}>
+       Back
+      </Button>
     </>
   );
 };
