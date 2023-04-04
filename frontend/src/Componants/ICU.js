@@ -46,7 +46,7 @@ const ICU = () => {
 
       {patients.map((patient)=>{
         return <button style={{fontSize: "30px",backgroundColor:"pink"}} onClick={()=>{
-          navigate("/patientdetail")
+          navigate(`/patientdetail/${patient._id}/${patient.mrNo}`)
          }}>{patient.mrNo} {patient.identification.name}</button>
       })}
 

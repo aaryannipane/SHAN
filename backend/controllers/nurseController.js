@@ -79,8 +79,9 @@ class NurseController {
 
   // single patient by id and mrNo
   static getSinglePatient = async (req, res) => {
-    const patientId = req.body.id;
-    const patientMrNo = req.body.mrNo;
+    console.log(req.params);
+    const patientId = req.params.id;
+    const patientMrNo = req.params.mrNo;
 
     if (!patientId || !patientMrNo) {
       return res

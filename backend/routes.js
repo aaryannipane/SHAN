@@ -67,7 +67,7 @@ router.get(
 
 // get single patient by id and mrNo
 router.get(
-  "/patient",
+  "/patient/:id/:mrNo",
   AuthMiddleware.UserAuth,
   NurseController.getSinglePatient
 );
