@@ -3,7 +3,7 @@ import {useState,useEffect} from'react'
 import { useForm } from "react-hook-form";
 import api from "../../http/index.js"
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import React, { useCallback } from "react";
 
 
@@ -11,7 +11,8 @@ const Patientdetail = () => {
     const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
     const [isOpen, setOpen] = useState(false)
     let navigate= useNavigate()
-    
+    const {id, mrNo} = useParams();
+
     //for reseting 
     const resetAsyncForm = useCallback(async () => {
       const result = await fetch('/api/patient'); // result: { firstName: 'test', lastName: 'test2' }
@@ -30,9 +31,14 @@ const Patientdetail = () => {
 
     useEffect(()=>{
       async function getPatient(){
-        const data = await api.get("/api/patient")
-        console.log(data.data.data);
-        setPatientD(data.data.data);
+        try{
+          const data = await api.get(`/api/patient/${id}/${mrNo}`,)
+          const patientData = data.data.patient
+          console.log(patientData);
+
+        } catch (err){
+          console.log(err.response.data.message)
+        }
       }
   
       getPatient()

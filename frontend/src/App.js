@@ -70,7 +70,7 @@ export const App = () => {
 
           <Route path="/mgmcet/icu" element={<Protected Component={ICU} />} />
 
-          <Route path="/patientdetail/:id" element={<Protected Component={Patientdetail} />} />
+          <Route path="/patientdetail/:id/:mrNo" element={<Protected Component={Patientdetail} />} />
         </Routes>
       </BrowserRouter>
     </>
