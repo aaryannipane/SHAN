@@ -9,12 +9,12 @@ const Situation = ({ patientData }) => {
 	const onSubmit = handleSubmit(async (data) => {
 		try {
 			const res = await api.post("http://localhost:5500/api/patient/update", {
-				// id: patientData.id,
-				// mrNo: patientData.mrNo,
+				id: patientData.id,
+				mrNo: patientData.mrNo,
 				// ISBAR: "situation",
 				ISBAR: "situation",
-				id: "642d5e148f0df06741aa4fa6",
-				mrNo: 123,
+				// id: "642d5e148f0df06741aa4fa6",
+				// mrNo: 123,
 				situation: data,
 			});
 		} catch (error) {
@@ -94,7 +94,7 @@ const Situation = ({ patientData }) => {
 					<option value={item}>{item}</option>
 				))}
 			</select>
-			<label htmlFor="pOther">pOther</label>
+			<label htmlFor="pOther">Pother</label>
 			<input type="text" {...register("continuousInfusion.inotrope.pOther")} />
 			<label>Negative Inotrope</label>
 			<select {...register("continuousInfusion.inotrope.negative")}>
@@ -108,7 +108,7 @@ const Situation = ({ patientData }) => {
 					<option>{item}</option>
 				))}
 			</select>
-			<label htmlFor="nOther">pOther</label>
+			<label htmlFor="nOther">Pother</label>
 			<input type="text" {...register("continuousInfusion.inotrope.nOther")} />
 			<label>Electrolytes correction</label>
 			<select {...register("continuousInfusion.electrolytesCorrection")}>

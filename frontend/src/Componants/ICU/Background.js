@@ -1,52 +1,65 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
-const Background = () => {
+import api from "../../http/index";
+const Background = ({ patientData }) => {
 	const { register, handleSubmit } = useForm();
 
-	const onSubmit = handleSubmit((data) => {
-		return console.log({ data });
+	console.log({ patientData });
+	const onSubmit = handleSubmit(async (data) => {
+		try {
+			const res = await api.post("http://localhost:5500/api/patient/update", {
+				id: patientData.id,
+				mrNo: patientData.mrNo,
+				// ISBAR: "situation",
+				ISBAR: "background",
+				// id: "642d5e148f0df06741aa4fa6",
+				// mrNo: 123,
+				background: data,
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	});
 
 	return (
-		<form>
+		<form onSubmit={onSubmit}>
 			<h1>BACKGROUND</h1>
 			<label>Past medical history</label>
 			<input
 				type="text"
-				{...register("Past medical history", { required: false })}
+				{...register("pastMedicalHistory", { required: false })}
 			/>
 			<label>Past surgical history</label>
 			<input
 				type="text"
-				{...register("Past surgical history", { required: false })}
+				{...register("pastSurgicalHistory", { required: false })}
 			/>
 			<label>Medication</label>
-			<input type="text" {...register("Medication", { required: false })} />
+			<input type="text" {...register("medication", { required: false })} />
 
 			<h1>Blood products</h1>
 
 			<label>whole blood</label>
-			<input type="text" {...register("whole blood", { required: false })} />
-			<label>pack red blood cells</label>
+			<input type="text" {...register("bloodProducts.wholeBlood", { required: false })} />
+			<label>Pack red blood cells</label>
 			<input
 				type="text"
-				{...register("pack red blood cells", { required: false })}
+				{...register("bloodProducts.packRedBloodCell", { required: false })}
 			/>
-			<label>fresh frozen plasma</label>
+			<label>Fresh frozen plasma</label>
 			<input
 				type="text"
-				{...register("fresh frozen plasma", { required: false })}
+				{...register("bloodProducts.freshFrozenPlasma", { required: false })}
 			/>
-			<label>single frozen plasma</label>
+			<label>Single frozen plasma</label>
 			<input
 				type="text"
-				{...register("single frozen plasma", { required: false })}
+				{...register("bloodProducts.singleDonorPlateletes", { required: false })}
 			/>
-			<label>cryoprecipitate antihemophilic factor</label>
+			<label>Cryoprecipitate antihemophilic factor</label>
 			<input
 				type="text"
-				{...register("cryoprecipitate antihemophilic factor", {
+				{...register("bloodProducts.cryoprecipitateAntihemophilicFactor", {
 					required: false,
 				})}
 			/>
