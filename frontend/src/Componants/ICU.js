@@ -26,7 +26,7 @@ const ICU = () => {
 
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}>ICU</h1>
+    <h1 style={{fontFamily:"Bold",background:"pink"}}>ICU</h1>
     <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column"}}>
    
     {/* <Box sx={{ '& > :not(style)': { m: 1 } }} 

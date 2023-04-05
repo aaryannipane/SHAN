@@ -1,84 +1,69 @@
 import axios from 'axios';
 import {useState,useEffect} from'react'
 import { useForm } from "react-hook-form";
-import api from "../../http/index.js"
+import api, { addPatientIdentification } from "../../http/index.js"
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useCallback } from "react";
+import {useSelector} from "react-redux";
+
 
 
 const Patientdetail = () => {
-    const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
-    const [isOpen, setOpen] = useState(false)
-    let navigate= useNavigate()
     const {id, mrNo} = useParams();
+    const [patientD, setPatientD] = useState({});
+    const [edit, setEdit] = useState(false)
+    let navigate= useNavigate()
 
-    //for reseting 
-    const resetAsyncForm = useCallback(async () => {
-      const result = await fetch('/api/patient'); // result: { firstName: 'test', lastName: 'test2' }
-      reset(result); // asynchronously reset your form values
-    }, [reset]);
-    
     useEffect(() => {
-      resetAsyncForm()
-    }, [resetAsyncForm])
-
-
-
-
-    const [patientD, setPatientD] = useState('');
-
-
-    useEffect(()=>{
-      async function getPatient(){
-        try{
-          const data = await api.get(`/api/patient/${id}/${mrNo}`,)
-          const patientData = data.data.patient
-          console.log(patientData);
-
-        } catch (err){
-          console.log(err.response.data.message)
+      async function getPatient() {
+        try {
+          const data = await api.get(`/api/patient/${id}/${mrNo}`);
+          const patientData = data.data.patient;
+          setPatientD(patientData);
+        } catch (err) {
+          console.log(err.response.data.message);
         }
       }
-  
-      getPatient()
-    },[])
-    // function getPatient(){
-    //   axios({
-    //   method:'get',
-    //   url:'/api/patient'
-      
-    // })
-    // .then(res=>{
-    //    console.log(res.data.data)
-    //    setPatientD(res.data);
-    //   }
-    //   getPatient();
-    // )
+      getPatient();
+    }, []);
 
-    // .catch(err=>console.log(err));
-    // }
-   
-
-
+    
   return (
-    <>
-     <form  style={{display:"flex", flexDirection:"column"}}>
-     <label>mrNo</label>
-      <input {...register("mrNo")} />
-      <label>Name</label>
-      <input {...register("name")} />
-      <label>Department</label>
-      <input {...register("department")} />
-      
-     </form>
-     <Button >get res</Button>
-     <Button variant="secondary" size="lg"  onClick={()=>{
+   <>
+   <h1 style={{ fontFamily: "Bold",background:"pink" }}>Patient Details</h1>
+
+   <label style={{fontSize:"30px"}}>MrNo</label>
+   <input type="text" value={patientD.mrNo} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+
+   <label style={{fontSize:"30px"}}>Name</label>
+   <input type="text" value={patientD.identification?.name} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Age</label>
+   <input type="text" value={patientD.identification?.age} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Date Of Addmision</label>
+   <input type="text" value={patientD.updatedAt} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Department</label>
+   <input type="text" value={patientD.department} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Ipd N</label>
+   <input type="text" value={patientD.identification?.ipdNo} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Bed No</label>
+   <input type="text" value={patientD.identification?.bedNo} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <label style={{fontSize:"30px"}}>Sex</label>
+   <input type="text" value={patientD.identification?.sex} style={{color:"white",fontSize:"20px"}} disabled={(edit)? false:true}/>
+
+   <Button variant="secondary" size="lg"  onClick={()=>{
     navigate("/mgmcet/icu")
    }}>
        Back
       </Button>
-    </>
+   </>
   )
 }
 
