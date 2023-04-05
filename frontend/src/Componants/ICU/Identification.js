@@ -48,7 +48,6 @@ const Identification = () => {
     let sendData = {ISBAR}
     sendData[ISBAR] = data;
     console.log(sendData);
-
     let res;
     // try {
     //   res = await api.post("api/patient/update", sendData);
@@ -63,7 +62,7 @@ const Identification = () => {
 
   return (
     <>
-      <h1 style={{ fontFamily: "Bold" }}>IDENTIFICATION</h1>
+      <h1 style={{ fontFamily: "Bold",background:"pink" }}>IDENTIFICATION</h1>
       <form style={{ display: "flex", flexDirection: "column" }}>
         {/* register your input into the hook by invoking the "register" function */}
 
@@ -170,7 +169,7 @@ const Identification = () => {
         <h1>SITUTION</h1>
 
         <label>Oxygen Support</label>
-        <select {...register("Oxygen Support",{ required: true })}>
+        <select {...register("Oxygen Support",{ required: false })}>
 
           <option value="Room air" {...register("value")}>Room air</option>
           <option value="Nasal cannuala">Nasal cannuala</option>
@@ -185,9 +184,11 @@ const Identification = () => {
         <input type="text" {...register("value", { required: false })} />
 
         <label>Ventilator Support</label>
-        <select {...register("ventilator Support",{ required: true })}>
+        <select {...register("ventilator Support",{ required: false })}>
           <option value="None">None</option>
-          <option value="PRVC">PRVC</option>
+          <option value="PRVC"
+          
+          >PRVC</option>
           <option value="CPAP">CPAP</option>
           <option value="SIMV">SIMV</option>
           <option value="PS">PS</option>
@@ -195,13 +196,13 @@ const Identification = () => {
           <option value="other">other</option>
         </select>
         <label>FIO2</label>
-        <input type="text" {...register("FIO2", { required: true })} />
+        <input type="text" {...register("FIO2", { required: false })} />
         <label>PEEP</label>
-        <input type="text" {...register("PEEP", { required: true })} />
+        <input type="text" {...register("PEEP", { required: false })} />
         <label>RR</label>
-        <input type="text" {...register("RR", { required: true })} />
+        <input type="text" {...register("RR", { required: false })} />
         <label>Tidal volume</label>
-        <input type="text" {...register("Tidal volume", { required: true })} />
+        <input type="text" {...register("Tidal volume", { required: false })} />
 
         <label>Continuos Infusion</label>
         <label>Inotrope</label>
@@ -248,7 +249,7 @@ const Identification = () => {
           {...register("Sodium bicarbonate", { required: false })}
         />
         <label>Other</label>
-        <input type="text" {...register("Other", { required: true })} />
+        <input type="text" {...register("Other", { required: false })} />
 
         <label>Nutritional Status</label>
         <label>Oral</label>
@@ -266,7 +267,7 @@ const Identification = () => {
           {...register("Fluid restriction", { required: false })}
         />
 
-        <button type="submit" onClick={handleSubmit(onSubmitISBAR("situation"))}>
+        <button type="submit" >
           Submit
         </button>
 
@@ -378,7 +379,7 @@ const Identification = () => {
         <label>Other</label>
         <input type="text" {...register("Other", { required: false })} />
 
-        <button type="submit" onClick={handleSubmit(onSubmitISBAR)}>
+        <button type="submit" >
           Submit
         </button>
 
@@ -430,7 +431,7 @@ const Identification = () => {
             required: false,
           })}
         />
-        <button type="submit" onClick={handleSubmit(onSubmitISBAR)}>
+         <button type="submit" >
           Submit
         </button>
 
@@ -468,7 +469,7 @@ const Identification = () => {
         <label>Other order</label>
         <input type="text" {...register("Other order", { required: false })} />
 
-        <button type="submit" onClick={handleSubmit(onSubmitISBAR)}>
+        <button type="submit" >
           Submit
         </button>
       </form>

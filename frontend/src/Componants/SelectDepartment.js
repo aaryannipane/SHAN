@@ -9,7 +9,7 @@ function SelectDepartment() {
 
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}>Select Department</h1>
+    <h1 style={{fontFamily:"Bold",background:"pink"}}>Select Department</h1>
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg" onClick={()=>{
     navigate("/mgmcet/icu")

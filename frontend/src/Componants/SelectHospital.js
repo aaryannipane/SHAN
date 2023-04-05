@@ -5,7 +5,7 @@ function SelectHospital() {
    
   return (
     <>
-    <h1 style={{fontFamily:"Bold"}}> Select Hospital</h1>
+    <h1 style={{fontFamily:"Bold",background:"pink"}}> Select Hospital</h1>
    
     <div className="d-grid gap-2">
       <button   onClick={()=>{
