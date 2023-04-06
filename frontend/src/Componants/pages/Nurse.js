@@ -1,41 +1,44 @@
-import React, { useState } from 'react';
+import {useSelector} from "react-redux";
+import { nurseLogout } from "../../http";
 import { useNavigate } from 'react-router-dom';
-import {Form,Button} from "react-bootstrap"; 
 
-export default function Nurse() {
+
+
+const Nurse = ({onClose}) => {
+
+    const data1 = useSelector((state) => {
+      return  state.user;
+   })
+
+   const navigate = useNavigate();
+
+function logoutmain(){
+localStorage.clear();
+navigate('/');
+} 
+
+   const logout = async ()=>{
   
-  let navigate= useNavigate()
-    return (<>
-    <h1>Nurse Login</h1>
-    <Form style={{width:"40%",margin:"auto"}}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Phone Number</Form.Label>
-        <Form.Control type="number" placeholder="Enter Number" />
-        <Form.Text className="text-muted">
-          We'll never share your Phone Number with anyone else.
-        </Form.Text>
-      </Form.Group>
+    const result = await nurseLogout();
+    console.log(result);
+    console.log("logout");
+   }
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary"size="lg"  type="submit" onClick={()=>{
-    navigate("/SelectHospital")
-   }}>
-        Submit
-      </Button>
-
-      <Button variant="secondary" size="lg"  onClick={()=>{
-    navigate("/Dashboard")
-   }}>
-       Back
-      </Button>
-    </Form>
-       
-    </>
-  );
+  return (
+  
+    <div style={{position:"fixed",bottom:"0",background:"black",height:"100vh",width:"20%"}}>
+        {/* <Navbar /> */}
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+    <h1 style={{fontFamily:"Bold" ,borderBottom: "1px solid rgb(212, 212, 212)",backgroundColor: "grey"}}>Nurse</h1>
+    
+      </div>
+      
+      <h2 style={{color:"white", fontFamily: "Arial",borderBottom: "1px solid rgb(212, 212, 212)"}}>{data1.user.username}</h2>
+      <button onClick={logoutmain} onSubmit={()=>{
+    navigate("/")
+   }}>Log Out</button>
+    </div>
+  )
 }
+
+export default Nurse;
