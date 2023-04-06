@@ -1,7 +1,7 @@
 import express from "express";
 import AdminController from "./controllers/adminController.js";
 import AuthController from "./controllers/authController.js";
-import NurseController from "./controllers/NurseController.js";
+import NurseController from "./controllers/nurseController.js";
 import SuperUserController from "./controllers/superUserController.js";
 import AuthMiddleware from "./middlewares/authMiddleware.js";
 

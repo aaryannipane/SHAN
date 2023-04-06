@@ -25,17 +25,19 @@ class NurseController {
         .status(401)
         .json({ success: false, message: "Invalid username or Password" });
     }
-
+  //res.cookie('cookieName', 'cookieValue', { sameSite: 'none', secure: true})
     res.cookie("id", nurse.id, {
       httpOnly: true,
+      sameSite: 'none', secure: true
     });
     res.cookie("username", nurse.username, {
       httpOnly: true,
+      sameSite: 'none', secure: true
     });
     res.cookie("role", nurse.role, {
       httpOnly: true,
+      sameSite: 'none', secure: true
     });
-
     res.json({
       success: true,
       user: {
@@ -142,7 +144,7 @@ class NurseController {
     if (isNaN(mrNo)) {
       return res
         .status(400)
-        .json({ message: false, message: "mrNo should be a number" });
+        .json({ success: false, message: "mrNo should be a number" });
     }
 
     // check patient exist in db
@@ -201,7 +203,7 @@ class NurseController {
     if (isNaN(mrNo)) {
       return res
         .status(400)
-        .json({ message: false, message: "mrNo should be a number" });
+        .json({ success: false, message: "mrNo should be a number" });
     }
 
     // check patient exist in db
@@ -355,3 +357,9 @@ class NurseController {
 }
 
 export default NurseController;
+
+
+
+/*
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+ */

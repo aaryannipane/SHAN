@@ -14,7 +14,7 @@ class AuthMiddleware {
           .status(400)
           .json({
             success: false,
-            message: "please provide authorised username, id, and role",
+            message: "please provide authorised username, id, and role.  recieved id: " + id + " username: " + username + " role: " + role,
           });
       }
 

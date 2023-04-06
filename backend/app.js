@@ -15,7 +15,8 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 
 const corsOption = {
   credentials: true,
-  origin: [process.env.FRONTEND_ORIGIN_URL],
+  origin: ["https://shan-frontend.vercel.app", "https://shan.sakurakat.systems"]
+
 };
 app.use(cors(corsOption));
 
