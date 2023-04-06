@@ -14,15 +14,15 @@ function SelectDepartment() {
       <Button variant="primary" size="lg" onClick={()=>{
     navigate("/mgmcet/icu")
    }}>
-        ICU
+        MICU
       </Button>
       <Button variant="secondary" size="lg" onClick={()=>{
     navigate("/ICU")
    }}>
-        ICU
+        SICU
       </Button>
       <Button variant="primary" size="lg">
-        ICU
+        MSICU
       </Button>
       
     </div>

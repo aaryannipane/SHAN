@@ -72,7 +72,7 @@ const Identification = () => {
 				{/* register your input into the hook by invoking the "register" function */}
 
 				{/* include validation with required or other standard HTML validation rules */}
-				<label>*Mr.No</label>
+				<label>*Mr Number</label>
 				<input
 					{...register("mrNo", {
 						required: { value: true, message: "Required" },
@@ -89,7 +89,7 @@ const Identification = () => {
 				<h4>Gender</h4>
 				<label htmlFor="field-male">
 					<input
-						{...register("gender")}
+						{...register("sex")}
 						type="radio"
 						value="Male"
 						id="field-male"
@@ -98,7 +98,7 @@ const Identification = () => {
 				</label>
 				<label htmlFor="field-female">
 					<input
-						{...register("gender")}
+						{...register("sex: ")}
 						type="radio"
 						value="Female"
 						id="field-female"
@@ -107,7 +107,7 @@ const Identification = () => {
 				</label>
 				<label htmlFor="field-other">
 					<input
-						{...register("gender")}
+						{...register("sex: ")}
 						type="radio"
 						value="Other"
 						id="field-other"
@@ -120,11 +120,11 @@ const Identification = () => {
 					<option value="Ward 1">Ward 1</option>
 					<option value="Ward 2">Ward 2</option>
 				</select>
-				<label>BedNumber</label>
-				<input type="number" {...register("bedNumber", { required: false })} />
-				<label>IpdNumber</label>
-				<input type="number" {...register("ipdNumber", { required: false })} />
-				<label>DateOfAdmission</label>
+				<label>Bed Number</label>
+				<input type="number" {...register("bedNo", { required: false })} />
+				<label>Ipd Number</label>
+				<input type="number" {...register("ipdNo", { required: false })} />
+				<label>Date Of Admission</label>
 				<input
 					type="date"
 					{...register("dateOfAdmission", { required: false })}
@@ -133,30 +133,30 @@ const Identification = () => {
 
 				{/* errors will return when field validation fails  */}
 				<label>Category</label>
-				<select {...register("category")}>
+				<select {...register("patientCategory")}>
 					<option value="None">none</option>
 					<option value="WPaying">Paying</option>
 					<option value="Mjpjy">Mjpjy</option>
 					<option value="Other">Other</option>
 				</select>
-				<label>Dr.name</label>
-				<input type="text" {...register("Dr.name", { required: false })} />
+				<label>Dr Name</label>
+				<input type="text" {...register("drName", { required: false })} />
 				<label>Unit</label>
-				<input type="text" {...register("Unit", { required: false })} />
+				<input type="text" {...register("unit", { required: false })} />
 				<label>Diagnosis</label>
-				<textarea type="text" {...register("Diagnosis", { required: false })} />
+				<textarea type="text" {...register("diagnosis", { required: false })} />
 				<label>Chief Complaints</label>
 				<textarea
 					type="text"
-					{...register("Chief Complaints", { required: false })}
+					{...register("chiefComplaints", { required: false })}
 				/>
 				<label>History of present illness</label>
 				<textarea
 					type="text"
-					{...register("History of present illness", { required: false })}
+					{...register("historyOfPresentIllness", { required: false })}
 				/>
 				<label>Allergy</label>
-				<textarea type="text" {...register("Allergy", { required: false })} />
+				<textarea type="text" {...register("allergy", { required: false })} />
 
 				{/* <Tabled/> */}
 
