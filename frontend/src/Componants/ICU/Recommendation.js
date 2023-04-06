@@ -9,7 +9,7 @@ const Recommendation = ({ patientData }) => {
 	console.log({ patientData });
 	const onSubmit = handleSubmit(async (data) => {
 		try {
-			const res = await api.post("http://localhost:5500/api/patient/update", {
+			const res = await api.post("/api/patient/update", {
 				id: patientData.id,
 				mrNo: patientData.mrNo,
 				// ISBAR: "situation",

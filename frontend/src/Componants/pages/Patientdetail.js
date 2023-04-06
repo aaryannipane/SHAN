@@ -34,6 +34,9 @@ const Patientdetail = () => {
    <h1 style={{ fontFamily: "Bold",background:"pink" }}>Patient Details</h1>
 
    <h1>identification</h1>
+   <label style={{fontSize:"20px"}}>MrNo</label>
+   <input type="text" value={patientD.mrNo} style={{color:"white",fontSize:"15px"}} disabled={(edit)? false:true}/>
+
    <label style={{fontSize:"20px"}}>Name</label>
    <input type="text" value={patientD.identification?.name} style={{color:"white",fontSize:"15px"}} disabled={(edit)? false:true}/>
 

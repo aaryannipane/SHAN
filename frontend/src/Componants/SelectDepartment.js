@@ -22,7 +22,7 @@ function SelectDepartment() {
         SICU
       </Button>
       <Button variant="primary" size="lg">
-        MSICU
+        EMICU
       </Button>
       
     </div>

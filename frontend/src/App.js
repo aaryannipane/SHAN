@@ -16,6 +16,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/UserSlice";
 import { LoginProtected } from "./Componants/LoginProtected";
+import api from "./http";
 
 //  MICUDepartment  MICUBed1
 export const App = () => {
@@ -26,11 +27,8 @@ export const App = () => {
     let isCancelled = false;
     const getUser = async () => {
       try {
-        const { data } = await axios.get(
+        const { data } = await api.get(
           `${process.env.REACT_APP_API_URL}/api/refresh`,
-          {
-            withCredentials: true,
-          }
         );
 
         dispatch(setUser(data.user));

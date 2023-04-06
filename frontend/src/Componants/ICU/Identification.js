@@ -24,7 +24,7 @@ const Identification = () => {
 	const onSubmit = async (data) => {
 		try {
 			const res = await api.post(
-				"http://localhost:5500/api/patient/identification",
+				"/api/patient/identification",
 				data
 			);
 			if (res.status === 200) {
