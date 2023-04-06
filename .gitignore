@@ -2,3 +2,4 @@ node_modules/
 backend/.git
 frontend/.git
 */.idea
+*/.env
