@@ -199,8 +199,8 @@ POST http://localhost:5500/api/patient/update HTTP/1.1
 Content-Type: application/json
 
 {
-    "id":"640f4c9fcf99f4fa763b3e41",
-    "mrNo":"1000001",
+    "id":"642d5e148f0df06741aa4fa6",
+    "mrNo":"123",
     "ISBAR":"situation",
     "situation": {
       "oxygenSupport": 

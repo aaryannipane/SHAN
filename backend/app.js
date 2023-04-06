@@ -15,7 +15,7 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 
 const corsOption = {
   credentials: true,
-  origin: ["http://localhost:3000"],
+  origin: [process.env.FRONTEND_ORIGIN_URL],
 };
 app.use(cors(corsOption));
 
