@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./Componants/pages/Home";
 import SelectHospital from "./Componants/SelectHospital";
 import Protected from "./Componants/Protected";
